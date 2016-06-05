@@ -49,7 +49,7 @@ module.exports.signup = function(req, res){
     var user = new User();
 
     user.username = req.body.username;
-    user.email = req.body.username;
+    user.email = req.body.email;
     user.password = req.body.password;
     user.title = req.body.title;
     user.firstName = req.body.firstName;
