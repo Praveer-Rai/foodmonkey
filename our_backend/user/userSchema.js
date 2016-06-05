@@ -5,9 +5,12 @@ var userSchema = mongoose.Schema({
     firstName: {
         type: String,
         required: true,
-        unique: true
     },
     lastName: {
+        type: String,
+        required: true,
+    },
+    username: {
         type: String,
         required: true,
         unique: true
