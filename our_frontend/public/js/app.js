@@ -84,33 +84,6 @@ angular.module('myApp.recipes', ['ngResource', 'ui.router'])
 
 
 
-//taken from http://stackoverflow.com/a/31671397/3200478
-
-angular.module('myApp')
-    .directive("compareTo", function () {
-        return {
-            require: "ngModel",
-            scope: {
-                otherModelValue: "=compareTo"
-            },
-            link: function (scope, element, attributes, ngModel) {
-
-                ngModel.$validators.compareTo = function (modelValue) {
-                    return modelValue == scope.otherModelValue;
-                };
-
-                scope.$watch("otherModelValue", function () {
-                    ngModel.$validate();
-                });
-            }
-        };
-    });
-
-/**
- * One can implmenet a config service if configuration more complex than constants is required
- */
-angular.module('myApp')
-    .constant("BASEURL", "http://localhost:3000");
 (function(){
 
     authInterceptor.$inject = ["BASEURL", "auth"];
@@ -232,6 +205,33 @@ angular.module('myApp')
 
 })();
 
+//taken from http://stackoverflow.com/a/31671397/3200478
+
+angular.module('myApp')
+    .directive("compareTo", function () {
+        return {
+            require: "ngModel",
+            scope: {
+                otherModelValue: "=compareTo"
+            },
+            link: function (scope, element, attributes, ngModel) {
+
+                ngModel.$validators.compareTo = function (modelValue) {
+                    return modelValue == scope.otherModelValue;
+                };
+
+                scope.$watch("otherModelValue", function () {
+                    ngModel.$validate();
+                });
+            }
+        };
+    });
+
+/**
+ * One can implmenet a config service if configuration more complex than constants is required
+ */
+angular.module('myApp')
+    .constant("BASEURL", "http://localhost:3000");
 angular.module('myApp')
     .controller("login", ["$scope", "currUser", "$mdDialog", function ($scope, currUser, $mdDialog) {
         $scope.username = '';
@@ -258,6 +258,14 @@ angular.module('myApp')
         }
     }]);
 
+'use strict';
+
+angular.module('myApp.recipes')
+
+    .factory('Recipe', ["$resource", function( $resource) {
+        return $resource('http://localhost:3000/api/recipes/:recipeId', {recipeId: '@_id'});
+
+    }]);
 angular.module('myApp')
     .controller("register", ["$scope", "currUser", "$mdDialog", function ($scope, currUser, $mdDialog) {
         $scope.username = '';
@@ -325,14 +333,6 @@ angular.module('myApp')
     }
 
 })();
-'use strict';
-
-angular.module('myApp.recipes')
-
-    .factory('Recipe', ["$resource", function( $resource) {
-        return $resource('http://localhost:3000/api/recipes/:recipeId', {recipeId: '@_id'});
-
-    }]);
 angular.module('myApp')
     .directive('mvToolbar', function() {
         return {
@@ -395,41 +395,6 @@ angular.module('myApp')
             }]
         }
     });
-'use strict';
-
-angular.module('myApp.recipes')
-
-    .constant('recipeListState', {
-        name: 'recipes.list',
-        options: {
-
-            // Using an empty url means that this child state will become active
-            // when its parent's url is navigated to. Urls of child states are
-            // automatically appended to the urls of their parent. So this state's
-            // url is '/recipes' (because '/recipes' + '').
-            url: '',
-
-            // IMPORTANT: Now we have a state that is not a top level state. Its
-            // template will be inserted into the ui-view within this state's
-            // parent's template; so the ui-view within contacts.html. This is the
-            // most important thing to remember about templates.
-            views: {
-                'content@root': {
-                    templateUrl: 'views/list/recipe-list.html',
-                    controller: 'RecipeListCtrl',
-                }
-            }
-
-        }
-
-    })
-
-    .controller('RecipeListCtrl', ["$scope", "Recipe", function($scope, Recipe) {
-        $scope.recipes = Recipe.query();
-
-    }])
-
-
 'use strict';
 
 angular.module('myApp.recipes')
@@ -539,3 +504,37 @@ angular.module('myApp.recipes')
 
 
     }]);
+'use strict';
+
+angular.module('myApp.recipes')
+
+    .constant('recipeListState', {
+        name: 'recipes.list',
+        options: {
+
+            // Using an empty url means that this child state will become active
+            // when its parent's url is navigated to. Urls of child states are
+            // automatically appended to the urls of their parent. So this state's
+            // url is '/recipes' (because '/recipes' + '').
+            url: '',
+
+            // IMPORTANT: Now we have a state that is not a top level state. Its
+            // template will be inserted into the ui-view within this state's
+            // parent's template; so the ui-view within contacts.html. This is the
+            // most important thing to remember about templates.
+            views: {
+                'content@root': {
+                    templateUrl: 'views/list/recipe-list.html',
+                    controller: 'RecipeListCtrl',
+                }
+            }
+
+        }
+
+    })
+
+    .controller('RecipeListCtrl', ["$scope", "Recipe", function($scope, Recipe) {
+        $scope.recipes = Recipe.query();
+
+    }])
+
