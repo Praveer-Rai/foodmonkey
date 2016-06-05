@@ -1,15 +1,15 @@
-var Movie = require('./movieSchema');
+var Recipe = require('./recipeSchema');
 
-exports.postMovie = function(req, res) {
+exports.postRecipe = function(req, res) {
 
-    var movie = new Movie(req.body);
+    var recipe = new Recipe(req.body);
 
-    //do not allow user to fake identity. The user who postet the movie must be the same user that is logged in
-    if (!req.user.equals(movie.user)) {
+    //do not allow user to fake identity. The user who postet the recipe must be the same user that is logged in
+    if (!req.user.equals(recipe.user)) {
         res.sendStatus(401);
     }
 
-    movie.save(function(err, m) {
+    recipe.save(function(err, m) {
         if (err) {
             res.status(500).send(err);
             return;
@@ -19,56 +19,56 @@ exports.postMovie = function(req, res) {
     });
 };
 
-// Create endpoint /api/movies for GET
-exports.getMovies = function(req, res) {
-    Movie.find(function(err, movies) {
+// Create endpoint /api/recipes for GET
+exports.getRecipes = function(req, res) {
+    Recipe.find(function(err, recipes) {
         if (err) {
             res.status(500).send(err);
             return;
         }
-        res.json(movies);
+        res.json(recipes);
     });
 };
 
 
-// Create endpoint /api/movies/:movie_id for GET
-exports.getMovie = function(req, res) {
+// Create endpoint /api/recipes/:recipe_id for GET
+exports.getRecipe = function(req, res) {
     // Use the Beer model to find a specific beer
-    Movie.findById(req.params.movie_id, function(err, movie) {
+    Recipe.findById(req.params.recipe_id, function(err, recipe) {
         if (err) {
             res.status(500).send(err)
             return;
         };
 
-        res.json(movie);
+        res.json(recipe);
     });
 };
 
-// Create endpoint /api/movies/:movie_id for PUT
-exports.putMovie = function(req, res) {
+// Create endpoint /api/recipes/:recipe_id for PUT
+exports.putRecipe = function(req, res) {
     // Use the Beer model to find a specific beer
-    Movie.findByIdAndUpdate(
-        req.params.movie_id,
+    Recipe.findByIdAndUpdate(
+        req.params.recipe_id,
         req.body,
         {
             //pass the new object to cb function
             new: true,
             //run validations
             runValidators: true
-        }, function (err, movie) {
+        }, function (err, recipe) {
         if (err) {
             res.status(500).send(err);
             return;
         }
-        res.json(movie);
+        res.json(recipe);
     });
 
 };
 
-// Create endpoint /api/movies/:movie_id for DELETE
-exports.deleteMovie = function(req, res) {
+// Create endpoint /api/recipes/:recipe_id for DELETE
+exports.deleteRecipe = function(req, res) {
     // Use the Beer model to find a specific beer and remove it
-    Movie.findById(req.params.movie_id, function(err, m) {
+    Recipe.findById(req.params.recipe_id, function(err, m) {
         if (err) {
             res.status(500).send(err);
             return;

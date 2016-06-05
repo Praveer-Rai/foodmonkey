@@ -1,53 +1,47 @@
 'use strict';
 
-angular.module('myApp.movies')
+angular.module('myApp.recipes')
 
-    .constant('movieDetailsState', {
-        name: 'movies.detail',
+    .constant('recipeDetailsState', {
+        name: 'recipe.detail',
         options: {
-            url: '/{movieId}',
+            url: '/{recipeId}',
 
             views: {
                 "content@root": {
-                    templateUrl: 'views/detail/movie-detail.html',
-                    controller: 'MovieDetailCtrl'
+                    templateUrl: 'views/detail/recipe-detail.html',
+                    controller: 'RecipeDetailCtrl'
                 }
             },
 
             resolve: {
                 //we abuse the resolve feature for eventual redirection
-                redirect: function($state, $stateParams, Movie, $timeout, $q){
-                    var mid = $stateParams.movieId;
+                redirect: function($state, $stateParams, Recipe, $timeout, $q){
+                    var mid = $stateParams.recipeId;
                     if (!mid) {
                         //timeout because the transition cannot happen from here
                         $timeout(function(){
-                            $state.go("movies.list");
+                            $state.go("recipes.list");
                         });
                         return $q.reject();
                     }
                 }
-            },
-            ncyBreadcrumb: {
-                // a bit ugly (and not stable), but ncybreadcrumbs doesn't support direct access
-                // to a view controller yet if there are multiple views
-                label: "{{$$childHead.$$childHead.movie.title}}",
-                parent: "movies.list"
             }
 
         }
     })
-    .controller('MovieDetailCtrl', function($scope, Movie, $mdToast, $mdDialog, $stateParams, $state, currUser) {
+    .controller('RecipeDetailCtrl', function($scope, Recipe, $mdToast, $mdDialog, $stateParams, $state, currUser) {
 
-        $scope.movie = Movie.get({movieId: $stateParams.movieId});
+        $scope.recipe = Recipe.get({recipeId: $stateParams.recipeId});
 
         $scope.mayDelete;
         $scope.mayEdit = currUser.loggedIn();
-        $scope.deleteMovie = deleteMovie;
-        $scope.updateMovie = updateMovie;
-        $scope.cancelEditingMovie = function(){ showSimpleToast("Editing cancelled"); }
+        $scope.deleteRecipe = deleteRecipe;
+        $scope.updateRecipe = updateRecipe;
+        $scope.cancelEditingRecipe = function(){ showSimpleToast("Editing cancelled"); }
 
-        $scope.movie.$promise.then(function(){
-            $scope.mayDelete = $scope.movie.user && $scope.movie.user == currUser.getUser()._id;
+        $scope.recipe.$promise.then(function(){
+            $scope.mayDelete = $scope.recipe.user && $scope.recipe.user == currUser.getUser()._id;
         });
 
         $scope.$watch(function(){
@@ -58,42 +52,42 @@ angular.module('myApp.movies')
                 $scope.mayEdit = false;
             } else {
                 $scope.mayEdit = true;
-                $scope.mayDelete = $scope.movie.user == currUser.getUser()._id;
+                $scope.mayDelete = $scope.recipe.user == currUser.getUser()._id;
             }
         });
 
         ////////////////////
 
 
-        function updateMovie(changed) {
+        function updateRecipe(changed) {
 
             if (!changed) {
                 showSimpleToast("no change");
                 return;
             }
 
-            $scope.movie.$update().then(function(updated){
-                $scope.movie = updated;
+            $scope.recipe.$update().then(function(updated){
+                $scope.recipe = updated;
                 showSimpleToast("update successfull");
             }, function(){
                 showSimpleToast("error. please try again later");
             });
         }
 
-        function deleteMovie(ev) {
+        function deleteRecipe(ev) {
 
             var confirm = $mdDialog.confirm()
-                .title('Are you sure you want to delete this movie?')
+                .title('Are you sure you want to delete this recipe?')
                 .targetEvent(ev)
                 .ok('Yes')
                 .cancel('Abort');
 
             var toastText;
             $mdDialog.show(confirm).then(function() {
-                return $scope.movie.$remove().then(function() {
-                    return $state.go('movies.list');
+                return $scope.recipe.$remove().then(function() {
+                    return $state.go('recipes.list');
                 }).then(function(){
-                    showSimpleToast('Movie deleted successfully');
+                    showSimpleToast('Recipe deleted successfully');
                 }, function() {
                     showSimpleToast("Error. Try again later");
                 });
