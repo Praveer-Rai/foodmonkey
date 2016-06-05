@@ -7,7 +7,33 @@ var Recipe   = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
+    prepTime: {type: Number, min: 1},
+    difficulty: {
+        type: String,
+        enum: ['easy', 'medium', 'hard'],
+        default: 'easy'
+    },
+    ingredients: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Ingredient'
+    }],
+    description: String,
+    steps: [String],
+    createdOn: {
+        type: Date,
+        default: Date.now
+    },
+    rating: {
+        type: Number,
+        default: 0
+    },
+    comment:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment'
+    }],
+    mainImageId: String,
+    thumbnailImageId: String
 });
 
 // Export the Mongoose model
