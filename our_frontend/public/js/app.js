@@ -3,10 +3,13 @@
 // Declare app level module which depends on views, and components
 angular.module('myApp', ['ui.router', 'myApp.recipes', 'templates', 'ngMaterial', 'ngMessages'])
 
-    .config(["$stateProvider", "$urlRouterProvider", "$mdIconProvider", "$resourceProvider", "$httpProvider", function($stateProvider, $urlRouterProvider, $mdIconProvider, $resourceProvider, $httpProvider) {
+    .config(["$stateProvider", "$mdThemingProvider", "$urlRouterProvider", "$mdIconProvider", "$resourceProvider", "$httpProvider", function($stateProvider, $mdThemingProvider ,$urlRouterProvider, $mdIconProvider, $resourceProvider, $httpProvider) {
 
         // For any unmatched url, redirect to /recipes
         $urlRouterProvider.otherwise("/recipes");
+
+        $mdThemingProvider.theme('foodMonkey').primaryPalette('teal')
+        $mdThemingProvider.setDefaultTheme('foodMonkey');
 
 
         $stateProvider

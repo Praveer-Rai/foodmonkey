@@ -1,101 +1,62 @@
 
+
 <!-- header -->
-<div class="header">
-    <div class="container">
-        <nav class="navbar navbar-default">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <div class="logo">
-                    <a class="navbar-brand" href="index.html">Food Monkey</a>
-                </div>
-            </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
-                <nav class="cl-effect-13" id="cl-effect-13">
-                    <ul class="nav navbar-nav">
-                        <li role="presentation" class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                Recipes <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Create</a></li>
-                                <li><a href="#">Browse</a></li>
-                            </ul>
-                        </li>
-
-                        <!-- not logged in -->
-                        <li role="presentation" class="dropdown" hide-xs ng-if="!loggedIn">
-                            <!-- not logged in -->
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                Profile <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" ng-click="showLoginDialog()">Login</a></li>
-                                <li><a href="#" ng-click="showSignupDialog()">Sign up</a></li>
-                            </ul>
-                        </li>
-                        <!-- logged in -->
-                        <li role="presentation" class="dropdown" ng-if="loggedIn">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                Hi {{user.username}} <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" ng-click="logout()">Logout</a></li>
-                            </ul>
-
-                        </li>
-                    </ul>
-                </nav>
-                <div class="social-icons">
-                    <ul>
-                        <li><a class="icon-link round facebook" href="#"></a></li>
-                        <li><a class="icon-link round p" href="#"></a></li>
-                        <li><a class="icon-link round twitter" href="#"></a></li>
-                        <li><a class="icon-link round dribble" href="#"></a></li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /.navbar-collapse -->
-        </nav>
+<div layout="row" layout-padding layout-align="space-between center">
+    <div>
+        <md-button>Home</md-button>
+        <md-menu>
+            <md-button md-menu-origin ng-click="$mdOpenMenu()">Recipes</md-button>
+            <md-menu-content width="2">
+                <!-- for logged in -->
+                <md-menu-item>
+                    <md-button>Create</md-button>
+                </md-menu-item>
+                <!-- for logged in -->
+                <md-menu-item>
+                    <md-button>Browse</md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
     </div>
-</div>
+    <div class="nav-buttons">
+        <!-- not logged in -->
+        <md-button hide-xs ng-if="!loggedIn" ng-click="showLoginDialog()" class="md-raised">Login</md-button>
+        <md-button hide-xs ng-if="!loggedIn" ng-click="showSignupDialog()" class="md-raised">Register</md-button>
+        <!-- logged in -->
+        <md-button ng-if="loggedIn" class="md-raised md-accent">My profile</md-button>
+        <md-button ng-if="loggedIn" ng-click="logout()" class="md-raised md-warn">Log Out</md-button>
+    </div>
+    </div>
+
 <!-- header -->
-
-
 
 <!--
  banner -->
 <div class="banner">
     <div class="container">
         <div class="banner-info">
-            <h1 class="animated fadeInLeftBig" data-wow-duration="1000ms" data-wow-delay="300ms">Welcome to Food Monkey.<span>Online cooking enthusiasts community</span></h1>
+            <h1 class="animated font-cursive fadeInLeftBig" data-wow-duration="1000ms" data-wow-delay="300ms">Welcome to Food Monkey.<span>Online cooking enthusiasts community</span></h1>
             <div class="banner-info1 animated wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
                 <ul id="flexiselDemo1">
                     <li>
                         <div class="banner-info1-grid">
                             <img src="images/1.png" alt=" " class="img-responsive" />
-                            <h3>Create Recipes</h3>
+                            <h3 class="font-cursive">Create Recipes</h3>
                             <p> You can create and upload your own recipe.</p>
                         </div>
                     </li>
                     <li>
                         <div class="banner-info1-grid">
                             <img src="images/2.png" alt=" " class="img-responsive" />
-                            <h3>Browse recipes</h3>
+                            <h3 class="font-cursive">Browse recipes</h3>
                             <p> You can see recipes uploaded by other users. </p>
                         </div>
                     </li>
                     <li>
                         <div class="banner-info1-grid">
                             <img src="images/3.png" alt=" " class="img-responsive" />
-                            <h3>Order ingredients</h3>
+                            <h3 class="font-cursive">Order ingredients</h3>
                             <p>Found a recipe you want to try, we will deliver it to your doorstep.</p>
                         </div>
                     </li>
