@@ -14,8 +14,11 @@
 
         ////////////////
 
-        function register(user, pass) {
+        function register(firstName, lastName, email, user, pass) {
             return $http.post(BASEURL + '/signup', {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
                 username: user,
                 password: pass
             });

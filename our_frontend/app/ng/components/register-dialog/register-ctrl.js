@@ -4,7 +4,7 @@ angular.module('myApp')
         $scope.pwd = '';
         $scope.pwdConfirm = '';
         $scope.errorText = '';
-        $scope.title = '';
+        $scope.email = '';
         $scope.firstName = '';
         $scope.lastName = '';
 
@@ -12,7 +12,7 @@ angular.module('myApp')
         $scope.cancel = cancel;
 
         function register() {
-            currUser.register($scope.username, $scope.pwd, $scope.title, $scope.firstName, $scope.lastName).then(function () {
+            currUser.register($scope.firstName, $scope.lastName, $scope.email, $scope.username, $scope.pwd).then(function () {
                 $mdDialog.hide();
             }, function (response) {
                 debugger;

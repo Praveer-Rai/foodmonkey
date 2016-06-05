@@ -9,6 +9,27 @@
         <h2 class="md-title md-primary">Sign up for food monkey</h2>
         <p class="md-warn" ng-show="errorText">{{errorText}}</p>
         <md-input-container class="md-block">
+            <label>First name</label>
+            <input type="text" name="firstName" required ng-model="firstName">
+            <div ng-messages="registerForm.firstName.$error">
+                <div ng-message="required">First name required.</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Last name</label>
+            <input type="text" name="lastName" ng-model="lastName">
+            <div ng-messages="registerForm.lastName.$error">
+                <div ng-message="required">Last Name is required.</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>eMail</label>
+            <input type="text" name="email" required ng-model="email">
+            <div ng-messages="registerForm.email.$error">
+                <div ng-message="required">eMail is required.</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
             <label>Username</label>
             <input type="text" required name="username" ng-model="username">
             <div ng-messages="registerForm.username.$error">
@@ -29,24 +50,6 @@
                 <div ng-message="required">Password confirmation required.</div>
                 <div ng-message="compareTo">Passwords must match.</div>
             </div>
-        </md-input-container>
-        <md-input-container class="md-block">
-            <label>Title</label>
-            <input type="title" name="title" required ng-model="title">
-            <div ng-messages="registerForm.title.$error">
-                <div ng-message="required">title is required.</div>
-            </div>
-        </md-input-container>
-        <md-input-container class="md-block">
-            <label>First name</label>
-            <input type="text" name="firstName" required ng-model="firstName">
-            <div ng-messages="registerForm.firstName.$error">
-                <div ng-message="required">First name required.</div>
-            </div>
-        </md-input-container>
-        <md-input-container class="md-block">
-            <label>Last name</label>
-            <input type="text" name="lastName" ng-model="lastName">
         </md-input-container>
     </md-dialog-content>
     <md-dialog-actions layout="row" layout-align="space-around center">
