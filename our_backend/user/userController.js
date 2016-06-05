@@ -44,10 +44,18 @@ module.exports.signup = function(req, res){
         return;
     }
 
+  
+
     var user = new User();
 
     user.username = req.body.username;
+    user.email = req.body.username;
     user.password = req.body.password;
+    user.title = req.body.title;
+    user.firstName = req.body.firstName;
+    user.lastName = req.body.lastName;
+
+    console.log(req.body);
 
     user.save(function(err) {
         if (err) {

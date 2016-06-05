@@ -2,14 +2,17 @@ angular.module('myApp')
     .controller("register", function ($scope, currUser, $mdDialog) {
         $scope.username = '';
         $scope.pwd = '';
-        $scope.pwdConfirm
+        $scope.pwdConfirm = '';
         $scope.errorText = '';
+        $scope.title = '';
+        $scope.firstName = '';
+        $scope.lastName = '';
 
         $scope.register = register;
         $scope.cancel = cancel;
 
         function register() {
-            currUser.register($scope.username, $scope.pwd).then(function () {
+            currUser.register($scope.username, $scope.pwd, $scope.title, $scope.firstName, $scope.lastName).then(function () {
                 $mdDialog.hide();
             }, function (response) {
                 debugger;

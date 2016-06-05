@@ -1,12 +1,12 @@
 <form name="registerForm" ng-submit="register()">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>Sign up</h2>
+            <h2>Register</h2>
         </div>
     </md-toolbar>
 
     <md-dialog-content layout-margin>
-        <h2 class="md-title md-primary">Create a new account</h2>
+        <h2 class="md-title md-primary">Sign up for food monkey</h2>
         <p class="md-warn" ng-show="errorText">{{errorText}}</p>
         <md-input-container class="md-block">
             <label>Username</label>
@@ -23,12 +23,30 @@
             </div>
         </md-input-container>
         <md-input-container class="md-block">
-            <label>repeat password</label>
+            <label>Repeat password</label>
             <input type="password" name="passwordConfirm" required compare-to="pwd" ng-model="pwdConfirm">
             <div ng-messages="registerForm.passwordConfirm.$error">
                 <div ng-message="required">Password confirmation required.</div>
                 <div ng-message="compareTo">Passwords must match.</div>
             </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Title</label>
+            <input type="title" name="title" required ng-model="title">
+            <div ng-messages="registerForm.title.$error">
+                <div ng-message="required">title is required.</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>First name</label>
+            <input type="text" name="firstName" required ng-model="firstName">
+            <div ng-messages="registerForm.firstName.$error">
+                <div ng-message="required">First name required.</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Last name</label>
+            <input type="text" name="lastName" ng-model="lastName">
         </md-input-container>
     </md-dialog-content>
     <md-dialog-actions layout="row" layout-align="space-around center">

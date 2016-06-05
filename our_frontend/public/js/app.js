@@ -261,26 +261,21 @@ angular.module('myApp')
         }
     }]);
 
-'use strict';
-
-angular.module('myApp.recipes')
-
-    .factory('Recipe', ["$resource", function( $resource) {
-        return $resource('http://localhost:3000/api/recipes/:recipeId', {recipeId: '@_id'});
-
-    }]);
 angular.module('myApp')
     .controller("register", ["$scope", "currUser", "$mdDialog", function ($scope, currUser, $mdDialog) {
         $scope.username = '';
         $scope.pwd = '';
-        $scope.pwdConfirm
+        $scope.pwdConfirm = '';
         $scope.errorText = '';
+        $scope.title = '';
+        $scope.firstName = '';
+        $scope.lastName = '';
 
         $scope.register = register;
         $scope.cancel = cancel;
 
         function register() {
-            currUser.register($scope.username, $scope.pwd).then(function () {
+            currUser.register($scope.username, $scope.pwd, $scope.title, $scope.firstName, $scope.lastName).then(function () {
                 $mdDialog.hide();
             }, function (response) {
                 debugger;
@@ -398,6 +393,14 @@ angular.module('myApp')
             }]
         }
     });
+'use strict';
+
+angular.module('myApp.recipes')
+
+    .factory('Recipe', ["$resource", function( $resource) {
+        return $resource('http://localhost:3000/api/recipes/:recipeId', {recipeId: '@_id'});
+
+    }]);
 'use strict';
 
 angular.module('myApp.recipes')
