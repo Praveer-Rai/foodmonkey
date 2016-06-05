@@ -2,7 +2,17 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 
 var userSchema = mongoose.Schema({
-    username: {
+    firstName: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    lastName: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    email: {
         type: String,
         required: true,
         unique: true
@@ -10,7 +20,16 @@ var userSchema = mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    savedRecipes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Recipe'
+    }],
+    shoppingList: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Order'
+    }],
+    profileImage: String
 });
 
 userSchema.pre('save', function(next) {
