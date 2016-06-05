@@ -5,27 +5,29 @@
 <div layout="row" layout-padding layout-align="space-between center">
     <div>
         <md-button>Home</md-button>
-        <md-menu>
+        <md-button>Browse Recipes</md-button>
+        <md-button ng-if="loggedIn">Create Recipes</md-button>
+ <!--       <md-menu>
             <md-button md-menu-origin ng-click="$mdOpenMenu()">Recipes</md-button>
             <md-menu-content width="2">
-                <!-- for logged in -->
-                <md-menu-item>
+                &lt;!&ndash; for logged in &ndash;&gt;
+                <md-menu-item hide-xs ng-if="!loggedIn">
                     <md-button>Create</md-button>
                 </md-menu-item>
-                <!-- for logged in -->
+                &lt;!&ndash; for logged in &ndash;&gt;
                 <md-menu-item>
                     <md-button>Browse</md-button>
                 </md-menu-item>
             </md-menu-content>
-        </md-menu>
+        </md-menu>-->
     </div>
     <div class="nav-buttons">
         <!-- not logged in -->
         <md-button hide-xs ng-if="!loggedIn" ng-click="showLoginDialog()" class="md-raised">Login</md-button>
         <md-button hide-xs ng-if="!loggedIn" ng-click="showSignupDialog()" class="md-raised">Register</md-button>
         <!-- logged in -->
-        <md-button ng-if="loggedIn" class="md-raised md-accent">My profile</md-button>
-        <md-button ng-if="loggedIn" ng-click="logout()" class="md-raised md-warn">Log Out</md-button>
+        <md-button ng-if="loggedIn" class="">Hi, {{user.username}} </md-button>
+        <md-button ng-if="loggedIn" ng-click="logout()" class="md-raised">Log Out</md-button>
     </div>
     </div>
 
