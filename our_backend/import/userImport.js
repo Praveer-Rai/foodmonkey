@@ -17,10 +17,11 @@ mongoose.connect([Config.db.host, '/', Config.db.name].join(''),{
 var User = mongoose.model('User', userSchema);
 
 var user = new User({
-    firstName: "asd",
-    lastName: "Mustermann",
-    password: "autoPass",
-    email: "AutoUser"
+    firstName: "First",
+    lastName: "Last",
+    username: "user",
+    password: "pass",
+    email: "user@example.com"
 });
 
 user.save(function(err, thorasd) {

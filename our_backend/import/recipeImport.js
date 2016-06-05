@@ -30,6 +30,7 @@ var recipe = new Recipe({
     user: u_1 = new User({
         firstName: "ingo",
         lastName: "deuter",
+        username: "testUser_1",
         email: "recipeUserfoodmonkecom",
         password: "asdakjshdkl"
     }),
@@ -53,6 +54,7 @@ var recipe = new Recipe({
             creator: u_2 = new User({
                 firstName: "hans",
                 lastName: "wurstwasser",
+                username: "testUser_2",
                 email: "commentUserfoodmonkeycom",
                 password: "asdasd"
             })
