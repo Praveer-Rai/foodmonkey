@@ -4,9 +4,9 @@
 
 <div layout="row" layout-padding layout-align="space-between center">
     <div>
-        <md-button>Home</md-button>
-        <md-button>Browse Recipes</md-button>
-        <md-button ng-if="loggedIn">Create Recipes</md-button>
+        <md-button href="/#">Home</md-button>
+        <md-button href="/#/recipes">Browse Recipes</md-button>
+        <md-button href="/#/create" ng-if="loggedIn">Create Recipes</md-button>
  <!--       <md-menu>
             <md-button md-menu-origin ng-click="$mdOpenMenu()">Recipes</md-button>
             <md-menu-content width="2">
@@ -32,73 +32,3 @@
     </div>
 
 <!-- header -->
-
-<!--
- banner -->
-<div class="banner">
-    <div class="container">
-        <div class="banner-info">
-            <h1 class="animated font-cursive fadeInLeftBig" data-wow-duration="1000ms" data-wow-delay="300ms">Welcome to Food Monkey.<span>Online cooking enthusiasts community</span></h1>
-            <div class="banner-info1 animated wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                <ul id="flexiselDemo1">
-                    <li>
-                        <div class="banner-info1-grid">
-                            <img src="images/1.png" alt=" " class="img-responsive" />
-                            <h3 class="font-cursive">Create Recipes</h3>
-                            <p> You can create and upload your own recipe.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="banner-info1-grid">
-                            <img src="images/2.png" alt=" " class="img-responsive" />
-                            <h3 class="font-cursive">Browse recipes</h3>
-                            <p> You can see recipes uploaded by other users. </p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="banner-info1-grid">
-                            <img src="images/3.png" alt=" " class="img-responsive" />
-                            <h3 class="font-cursive">Order ingredients</h3>
-                            <p>Found a recipe you want to try, we will deliver it to your doorstep.</p>
-                        </div>
-                    </li>
-                </ul>
-                <script type="text/javascript">
-                    $(window).load(function() {
-                        $("#flexiselDemo1").flexisel({
-                            visibleItems: 3,
-                            animationSpeed: 1000,
-                            autoPlay: true,
-                            autoPlaySpeed: 3000,
-                            pauseOnHover: true,
-                            enableResponsiveBreakpoints: true,
-                            responsiveBreakpoints: {
-                                portrait: {
-                                    changePoint:480,
-                                    visibleItems: 1
-                                },
-                                landscape: {
-                                    changePoint:640,
-                                    visibleItems:2
-                                },
-                                tablet: {
-                                    changePoint:768,
-                                    visibleItems: 2
-                                }
-                            }
-                        });
-
-                    });
-                </script>
-                <script type="text/javascript" src="template-js/jquery.flexisel.js"></script>
-                <div class="more wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
-                    <a href="single.html" class="hvr-curl-bottom-right">Read More</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- //banner -->
-
-
-</div>

@@ -1,15 +1,22 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('myApp', ['ui.router', 'myApp.recipes', 'templates', 'ngMaterial', 'ngMessages'])
+angular.module('myApp', ['ui.router', 'myApp.recipes', 'myApp.home', 'templates', 'ngMaterial', 'ngMessages'])
 
     .config(function($stateProvider, $mdThemingProvider ,$urlRouterProvider, $mdIconProvider, $resourceProvider, $httpProvider) {
 
-        // For any unmatched url, redirect to /recipes
-        $urlRouterProvider.otherwise("/recipes");
+        // For any unmatched url, redirect to homepage
+        $urlRouterProvider.otherwise("/home");
 
-        $mdThemingProvider.theme('foodMonkey').primaryPalette('teal')
-        $mdThemingProvider.setDefaultTheme('foodMonkey');
+        //$mdThemingProvider.theme('foodMonkey').primaryPalette('teal').backgroundPallete('indigo')
+       // $mdThemingProvider.setDefaultTheme('foodMonkey');
+
+        $mdThemingProvider
+            .theme('default')
+            .primaryPalette('teal')
+            .accentPalette('pink')
+            .warnPalette('red')
+            .backgroundPalette('blue-grey');
 
 
         $stateProvider
