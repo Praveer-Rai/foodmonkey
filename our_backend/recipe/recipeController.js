@@ -27,7 +27,7 @@ exports.getRecipes = function(req, res) {
             return;
         }
         res.json(recipes);
-    });
+    }).populate('user');
 };
 
 
