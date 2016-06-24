@@ -1,15 +1,22 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('myApp', ['ui.router', 'myApp.recipes', 'templates', 'ngMaterial', 'ngMessages'])
+angular.module('myApp', ['ui.router', 'myApp.recipes', 'myApp.home', 'templates', 'ngMaterial', 'ngMessages'])
 
     .config(["$stateProvider", "$mdThemingProvider", "$urlRouterProvider", "$mdIconProvider", "$resourceProvider", "$httpProvider", function($stateProvider, $mdThemingProvider ,$urlRouterProvider, $mdIconProvider, $resourceProvider, $httpProvider) {
 
-        // For any unmatched url, redirect to /recipes
-        $urlRouterProvider.otherwise("/recipes");
+        // For any unmatched url, redirect to homepage
+        $urlRouterProvider.otherwise("/home");
 
-        $mdThemingProvider.theme('foodMonkey').primaryPalette('teal')
-        $mdThemingProvider.setDefaultTheme('foodMonkey');
+        //$mdThemingProvider.theme('foodMonkey').primaryPalette('teal').backgroundPallete('indigo')
+       // $mdThemingProvider.setDefaultTheme('foodMonkey');
+
+        $mdThemingProvider
+            .theme('default')
+            .primaryPalette('teal')
+            .accentPalette('pink')
+            .warnPalette('red')
+            .backgroundPalette('blue-grey');
 
 
         $stateProvider
@@ -186,8 +193,11 @@ angular.module('myApp.recipes', ['ngResource', 'ui.router'])
 
         ////////////////
 
-        function register(user, pass) {
+        function register(firstName, lastName, email, user, pass) {
             return $http.post(BASEURL + '/signup', {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
                 username: user,
                 password: pass
             });
@@ -208,6 +218,19 @@ angular.module('myApp.recipes', ['ngResource', 'ui.router'])
 
 })();
 
+'use strict';
+
+angular.module('myApp.recipes')
+
+    .directive('mvCommentBox', function() {
+        return {
+            restrict: 'A',
+            scope: {
+                comment: '='
+            },
+            templateUrl: 'comment-box.html'
+        };
+    });
 //taken from http://stackoverflow.com/a/31671397/3200478
 
 angular.module('myApp')
@@ -235,6 +258,51 @@ angular.module('myApp')
  */
 angular.module('myApp')
     .constant("BASEURL", "http://localhost:3000");
+angular.module('myApp.home', ['ngResource', 'ui.router'])
+
+.config(["$stateProvider", "$urlRouterProvider", "homeState", function ($stateProvider,   $urlRouterProvider, homeState) {
+    $stateProvider
+
+        .state('home', {
+
+            // With abstract set to true, that means this state can not be explicitly activated.
+            // It can only be implicitly activated by activating one of its children.
+            abstract: true,
+            parent: 'root',
+
+            // This abstract state will prepend '/recipes' onto the urls of all its children.
+            url: '/home',
+
+            // since we have views we do not need to define a template here
+            //template: '<div ui-view></div>',
+
+            // Use `resolve` to resolve any asynchronous controller dependencies
+            // *before* the controller is instantiated. In this case, since contacts
+            // returns a promise, the controller will wait until contacts.all() is
+            // resolved before instantiation. Non-promise return values are considered
+            // to be resolved immediately.
+            //resolve: {
+            //    recipes: ['contacts',
+            //        function( contacts){
+            //            return contacts.all();
+            //        }]
+            //},
+
+        })
+
+
+        // Using a '.' within a state name declares a child within a parent.
+        // So you have a new state 'list' within the parent 'recipes' state.
+        .state(homeState.name, homeState.options)
+    
+
+}]);
+
+
+
+
+
+
 angular.module('myApp')
     .controller("login", ["$scope", "currUser", "$mdDialog", function ($scope, currUser, $mdDialog) {
         $scope.username = '';
@@ -261,13 +329,37 @@ angular.module('myApp')
         }
     }]);
 
+/**
+ * Created by flori on 05.06.2016.
+ */
+'use strict';
+
+angular.module('myApp.recipes')
+
+    .directive('mvRecipeCard', function() {
+        return {
+            restrict: 'A',
+            scope: {
+                recipe: '='
+            },
+            templateUrl: 'components/recipe-card/recipe-card.html'
+        };
+    });
+
+'use strict';
+
+angular.module('myApp.recipes')
+
+    .factory('Recipe', ["$resource", function($resource) {
+        return $resource('http://localhost:3000/api/recipes/:recipe_id', {recipe_id: '@_id'});
+    }]);
 angular.module('myApp')
     .controller("register", ["$scope", "currUser", "$mdDialog", function ($scope, currUser, $mdDialog) {
         $scope.username = '';
         $scope.pwd = '';
         $scope.pwdConfirm = '';
         $scope.errorText = '';
-        $scope.title = '';
+        $scope.email = '';
         $scope.firstName = '';
         $scope.lastName = '';
 
@@ -275,7 +367,7 @@ angular.module('myApp')
         $scope.cancel = cancel;
 
         function register() {
-            currUser.register($scope.username, $scope.pwd, $scope.title, $scope.firstName, $scope.lastName).then(function () {
+            currUser.register($scope.firstName, $scope.lastName, $scope.email, $scope.username, $scope.pwd).then(function () {
                 $mdDialog.hide();
             }, function (response) {
                 debugger;
@@ -397,16 +489,8 @@ angular.module('myApp')
 
 angular.module('myApp.recipes')
 
-    .factory('Recipe', ["$resource", function( $resource) {
-        return $resource('http://localhost:3000/api/recipes/:recipeId', {recipeId: '@_id'});
-
-    }]);
-'use strict';
-
-angular.module('myApp.recipes')
-
     .constant('recipeDetailsState', {
-        name: 'recipe.detail',
+        name: 'recipes.detail',
         options: {
             url: '/{recipeId}',
 
@@ -433,15 +517,18 @@ angular.module('myApp.recipes')
 
         }
     })
-    .controller('RecipeDetailCtrl', ["$scope", "Recipe", "$mdToast", "$mdDialog", "$stateParams", "$state", "currUser", function($scope, Recipe, $mdToast, $mdDialog, $stateParams, $state, currUser) {
+    .controller('RecipeDetailCtrl', ["$scope", "Recipe", "$mdToast", "$mdDialog", "$stateParams", "$state", "currUser", "$http", function($scope, Recipe, $mdToast, $mdDialog, $stateParams, $state, currUser, $http) {
 
         $scope.recipe = Recipe.get({recipeId: $stateParams.recipeId});
+
+        $scope.commentText = '';
 
         $scope.mayDelete;
         $scope.mayEdit = currUser.loggedIn();
         $scope.deleteRecipe = deleteRecipe;
         $scope.updateRecipe = updateRecipe;
-        $scope.cancelEditingRecipe = function(){ showSimpleToast("Editing cancelled"); }
+        $scope.addNewComment = addNewComment;
+        $scope.cancelEditingRecipe = function(){ showSimpleToast("Editing cancelled"); };
 
         $scope.recipe.$promise.then(function(){
             $scope.mayDelete = $scope.recipe.user && $scope.recipe.user == currUser.getUser()._id;
@@ -508,8 +595,46 @@ angular.module('myApp.recipes')
             );
         }
 
+        function addNewComment() {
+            var text = $scope.commentText;
 
+            return $http.post('/recipes/:recipe_id', text)
+                .success(function(){
+                    console.log('New Comment Added');
+                })
+        }
     }]);
+'use strict';
+
+angular.module('myApp.home')
+
+    .constant('homeState', {
+        name: 'home.view',
+        options: {
+
+            // Using an empty url means that this child state will become active
+            // when its parent's url is navigated to. Urls of child states are
+            // automatically appended to the urls of their parent. So this state's
+            // url is '/home' (because '/home' + '').
+            url: '',
+
+            // IMPORTANT: Now we have a state that is not a top level state. Its
+            // template will be inserted into the ui-view within this state's
+            // parent's template; so the ui-view within contacts.html. This is the
+            // most important thing to remember about templates.
+            views: {
+                'content@root': {
+                    templateUrl: 'views/home/home.html',
+                }
+            }
+
+        }
+
+    })
+
+
+
+
 'use strict';
 
 angular.module('myApp.recipes')

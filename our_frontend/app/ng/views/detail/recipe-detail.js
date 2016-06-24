@@ -3,7 +3,7 @@
 angular.module('myApp.recipes')
 
     .constant('recipeDetailsState', {
-        name: 'recipe.detail',
+        name: 'recipes.detail',
         options: {
             url: '/{recipeId}',
 
@@ -30,15 +30,18 @@ angular.module('myApp.recipes')
 
         }
     })
-    .controller('RecipeDetailCtrl', function($scope, Recipe, $mdToast, $mdDialog, $stateParams, $state, currUser) {
+    .controller('RecipeDetailCtrl', function($scope, Recipe, $mdToast, $mdDialog, $stateParams, $state, currUser, $http) {
 
         $scope.recipe = Recipe.get({recipeId: $stateParams.recipeId});
+
+        $scope.commentText = '';
 
         $scope.mayDelete;
         $scope.mayEdit = currUser.loggedIn();
         $scope.deleteRecipe = deleteRecipe;
         $scope.updateRecipe = updateRecipe;
-        $scope.cancelEditingRecipe = function(){ showSimpleToast("Editing cancelled"); }
+        $scope.addNewComment = addNewComment;
+        $scope.cancelEditingRecipe = function(){ showSimpleToast("Editing cancelled"); };
 
         $scope.recipe.$promise.then(function(){
             $scope.mayDelete = $scope.recipe.user && $scope.recipe.user == currUser.getUser()._id;
@@ -105,5 +108,12 @@ angular.module('myApp.recipes')
             );
         }
 
+        function addNewComment() {
+            var text = $scope.commentText;
 
+            return $http.post('/recipes/:recipe_id', text)
+                .success(function(){
+                    console.log('New Comment Added');
+                })
+        }
     });

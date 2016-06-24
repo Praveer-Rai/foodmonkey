@@ -51,5 +51,4 @@ var recipeRoutes = require("./recipe/recipeRoutes");
 app.use('/api', recipeRoutes(passport));
 app.use('/', userRoutes(passport));
 
-
 module.exports = app;

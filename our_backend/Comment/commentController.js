@@ -23,8 +23,8 @@ exports.postComment = function(req, res) {
 };
 
 // Create endpoint /api/Comment for GET
-exports.getComment = function(req, res) {
-    Comment.find(function(err, comments) {
+exports.getComments = function(req, res) {
+    Comment.find(req.params.recipe_id, function(err, comments) {
         if (err) {
             res.status(500).send(err);
             return;
@@ -37,7 +37,7 @@ exports.getComment = function(req, res) {
 // Create endpoint /api/movies/:movie_id for GET
 exports.getComment = function(req, res) {
     // Use the Beer model to find a specific beer
-    Comment.findById(req.params.comment_id, function(err, movie) {
+    Comment.findById(req.params.comment_id, function(err, comment) {
         if (err) {
             res.status(500).send(err)
             return;

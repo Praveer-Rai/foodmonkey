@@ -1,4 +1,5 @@
 var Recipe = require('./recipeSchema');
+var Comment = require('../comment/commentSchema');
 
 exports.postRecipe = function(req, res) {
 
@@ -36,10 +37,9 @@ exports.getRecipe = function(req, res) {
     // Use the Beer model to find a specific beer
     Recipe.findById(req.params.recipe_id, function(err, recipe) {
         if (err) {
-            res.status(500).send(err)
+            res.status(500).send(err);
             return;
-        };
-
+        }
         res.json(recipe);
     });
 };
@@ -82,4 +82,22 @@ exports.deleteRecipe = function(req, res) {
         }
 
     });
+};
+
+exports.addNewComment = function(req, res){
+    var newComment = new Comment({
+        text: req.body.text
+    });
+
+    Recipe.findByIdAndUpdate(
+        req.params.recipe_id,
+        {$push: {comments: newComment}},
+        {safe: true, new: true},
+        function(err, recipe){
+            if (err){
+                res.status(500).send(err);
+            }
+            res.json(recipe);
+        }
+    )
 };

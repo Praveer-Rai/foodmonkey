@@ -20,6 +20,7 @@ function recipeRoutes(passport) {
     router.route('/recipes/:recipe_id')
         .get(recipeController.getRecipe)
         .put(recipeController.putRecipe)
+        .post(recipeController.addNewComment)
         .delete(recipeController.deleteRecipe);
 
     return router;

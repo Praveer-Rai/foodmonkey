@@ -1,6 +1,35 @@
 <div layout="row" layout-padding>
+    <div class="banner">
+        <img class="mv-display-pic" ng-src="{{recipe.mainImageId}}">
+    </div>
 
+    <div class="container">
+        <h1>{{recipe.title}}</h1>
+        <h2>Prep Time: {{recipe.prepTime}}</h2>
+        <h2>Difficulty: {{recipe.difficulty}}</h2>
+        <h2>Rating: {{recipe.rating}}</h2>
+        <h3>By: {{recipe.user.username}}</h3>
+        <h3>Created: {{recipe.createdOn | date}}</h3>
+        <h4>{{recipe.description}}</h4>
 
+        <ul>
+            <li ng-repeat="ingredient in recipe.ingredients">{{ingredient.name}}</li>
+
+            <li ng-repeat="step in recipe.steps">{{step}}</li>
+        </ul>
+
+        <form name="CommentForm" ng-submit="addNewComment()" ng-if="loggedIn">
+            <md-input-container class="md-block">
+                <label>Share your inputs!</label>
+                <input type="text" name="Comment" ng-model="commentText">
+            </md-input-container>
+            <md-button type="submit">Comment</md-button>
+        </form>
+
+        <p ng-if="!loggedIn">Please log in to add comments</p>
+
+        <ul mv-comment-box class="comment-box" comment="comment" ng-repeat="comment in comments">{{comment.text}}</ul>
+    </div>
 
 
 </div>

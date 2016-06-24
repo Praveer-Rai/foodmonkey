@@ -1,3 +1,5 @@
+module.exports = commentRoutes;
+
 function commentRoutes(passport) {
 
     var commentController = require('./commentController');
@@ -12,7 +14,7 @@ function commentRoutes(passport) {
 
     router.route('/comment')
         .post(commentController.postComment)
-        .get(commentController.getComment);
+        .get(commentController.getComments);
 
     router.route('/comment/:comment_id')
         .get(commentController.getComment)
