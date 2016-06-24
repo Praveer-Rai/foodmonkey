@@ -21,7 +21,7 @@
         <form name="CommentForm" ng-submit="addNewComment()" ng-if="loggedIn">
             <md-input-container class="md-block">
                 <label>Share your inputs!</label>
-                <input type="text" name="Comment" ng-model="commentText">
+                <input type="text" name="text" ng-model="comment.text">
             </md-input-container>
             <md-button type="submit">Comment</md-button>
         </form>

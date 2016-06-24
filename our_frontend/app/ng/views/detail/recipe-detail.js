@@ -30,11 +30,11 @@ angular.module('myApp.recipes')
 
         }
     })
-    .controller('RecipeDetailCtrl', function($scope, Recipe, $mdToast, $mdDialog, $stateParams, $state, currUser, $http) {
+    .controller('RecipeDetailCtrl', function($scope, Recipe, $mdToast, $rootScope, $mdDialog, $stateParams, $state, currUser, $http) {
 
         $scope.recipe = Recipe.get({recipeId: $stateParams.recipeId});
 
-        $scope.commentText = '';
+        $scope.comment = new Comment();
 
         $scope.mayDelete;
         $scope.mayEdit = currUser.loggedIn();
@@ -103,17 +103,32 @@ angular.module('myApp.recipes')
             $mdToast.show(
                 $mdToast.simple()
                     .textContent(txt)
+                    .position('bottom')
+                    .hideDelay(3000)
+            );
+        }
+
+        function showSaveToast() {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent("Save successful")
                     .position('bottom right')
                     .hideDelay(3000)
             );
         }
 
         function addNewComment() {
-            var text = $scope.commentText;
 
-            return $http.post('/recipes/:recipe_id', text)
+            $scope.comment.creator = currUser.getUser()._id;
+
+            showSimpleToast($scope.command.text);
+            /*
+                TO-DO: REST PUT with recipe containing the comment inside its commands array
+            /*
+            return $scope.post('/recipes/:recipe_id', recipe)
                 .success(function(){
                     console.log('New Comment Added');
                 })
+            */
         }
     });
