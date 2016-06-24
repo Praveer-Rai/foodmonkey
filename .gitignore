@@ -3,3 +3,4 @@
 /our_frontend/bower_components/*
 /npm-debug.log
 /config/config.js
+/our_backend/config
