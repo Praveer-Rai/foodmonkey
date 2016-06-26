@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('myApp', ['ui.router', 'myApp.recipes', 'myApp.home', 'templates', 'ngMaterial', 'ngMessages'])
+angular.module('myApp', ['ui.router', 'myApp.recipes', 'myApp.home', 'myApp.create', 'templates', 'ngMaterial', 'ngMessages'])
 
     .config(function($stateProvider, $mdThemingProvider ,$urlRouterProvider, $mdIconProvider, $resourceProvider, $httpProvider) {
 
@@ -17,6 +17,10 @@ angular.module('myApp', ['ui.router', 'myApp.recipes', 'myApp.home', 'templates'
             .accentPalette('pink')
             .warnPalette('red')
             .backgroundPalette('blue-grey');
+
+        $mdThemingProvider.theme('docs-dark', 'default')
+            .primaryPalette('yellow')
+            .dark();
 
 
         $stateProvider

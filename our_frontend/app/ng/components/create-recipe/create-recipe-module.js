@@ -38,6 +38,5 @@ angular.module('myApp.create', ['ngResource', 'ui.router'])
             // Using a '.' within a state name declares a child within a parent.
             // So you have a new state 'list' within the parent 'recipes' state.
             .state(createState.name, createState.options)
-
-
+        
     });
