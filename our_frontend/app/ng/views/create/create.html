@@ -34,14 +34,14 @@
                     <md-button class="md-accent md-raised md-hue-1" ng-click="addNewIngredient()">Add Ingredient</md-button>
                 </div>
                 <div>
-                    <div ng-repeat="step in steps track by $index">
+                    <div ng-repeat="step in recipe.steps track by $index">
                         <md-input-container >
                             <label>Step</label>
                             <input ng-model="step">
-                            <button class="remove" ng-show="$last" ng-click="removeStep()">-</button>
+                            <button class="md-raised md-warn" ng-show="$last" ng-click="removeStep()">-</button>
                         </md-input-container>
                     </div>
-                    <md-button class="md-accent md-raised md-hue-1" ng-click="addNewStep()">Add Step</md-button>
+                    <md-button class="md-accent md-raised md-hue-1" ng-click="addNewStep($event)">Add Step</md-button>
                 </div>
                 <div layout-gt-sm="row">
                     <md-input-container class="md-block" flex-gt-sm>

@@ -3,14 +3,17 @@
  */
 
 angular.module('myApp.create')
-    .controller('CreateRecipeCtrl', function($scope, Recipe, $mdDialog, $rootScope, currUser) {
+    .controller('CreateRecipeCtrl', function($scope, Recipe, $mdDialog, $rootScope, currUser, $mdToast) {
 
         $scope.recipe = new Recipe();
+        //$scope.steps = [];
+        $scope.recipe.steps = [];
+
         $scope.difficulties = ('easy medium hard').split(' ').map(function(diff){
             return {abbrev:diff}
         });
         $scope.ingrediens = [{name: 'Cola', price: 1.20, quantity: 4}, {name: 'Beer', price: 1.80, quantity: 4}];
-        $scope.steps = ["1. Step"];
+
         /*
         var ingr = new Ingredient();
         ingr.name = "Test";
@@ -19,7 +22,6 @@ angular.module('myApp.create')
         */
         $scope.addNewIngredient = function() {
             $scope.ingrediens.push({});
-
         };
 
         $scope.removeIngredient = function() {
@@ -27,15 +29,37 @@ angular.module('myApp.create')
             $scope.ingrediens.splice(lastItem);
         };
 
-        $scope.addNewStep = function() {
-            $scope.steps.push("");
-
+        $scope.addNewStep = function(ev) {
+            var confirm = $mdDialog.prompt()
+                .title('Add new Step to Recipe')
+                .textContent('Please describe the step')
+                .placeholder('Step')
+                .targetEvent(ev)
+                .cancel('Cancel')
+                .ok('Add Step');
+            $mdDialog.show(confirm).then(function(result) {
+                showSimpleToast("New Step added to recipe")
+                //$scope.steps.push(result);
+                $scope.recipe.steps.push(result);
+            }, function() {
+                showSimpleToast("Adding new step canceled");
+            });
+            console.log("Test");
         };
 
         $scope.removeStep = function() {
-            var lastItem = $scope.steps.length-1;
-            $scope.steps.splice(lastItem);
+            var lastItem = $scope.recipe.steps.length-1;
+            $scope.recipe.steps.splice(lastItem);
         };
+
+        function showSimpleToast(txt) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(txt)
+                    .position('bottom-right')
+                    .hideDelay(3000)
+            );
+        }
 
         $scope.save = function() {
             $scope.recipe.user = currUser.getUser()._id;
