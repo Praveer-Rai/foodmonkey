@@ -3,31 +3,68 @@
  */
 
 angular.module('myApp.create')
-    .controller('CreateRecipeCtrl', function($scope, Recipe, $mdDialog, $rootScope, currUser, $mdToast) {
+    .controller('CreateRecipeCtrl', function($scope, Recipe, Ingredient, $mdDialog, $rootScope, currUser, $mdToast, $mdMedia) {
 
         $scope.recipe = new Recipe();
-        //$scope.steps = [];
+        $scope.recipe.ingredients = [];
         $scope.recipe.steps = [];
-
+        $scope.ingrediens = [];
         $scope.difficulties = ('easy medium hard').split(' ').map(function(diff){
             return {abbrev:diff}
         });
         $scope.ingrediens = [{name: 'Cola', price: 1.20, quantity: 4}, {name: 'Beer', price: 1.80, quantity: 4}];
 
-        /*
-        var ingr = new Ingredient();
-        ingr.name = "Test";
-        ingr.price = 1.20;
-        ingr.quantity = 4;
-        */
+        $scope.showAddIngredientDialog = function(ev) {
+            $scope.ingredient = new Ingredient();
+            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+            $mdDialog.show({
+                //controller: DialogController,
+                templateUrl: 'components/create-recipe/add-ingredient-dialog.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose:true,
+                fullscreen: useFullScreen
+            })
+            .then(function(addNewIngredient) {
+                $scope.ingrediens.push({})
+                showSimpleToast('Ingredient added');
+            }, function() {
+                showSimpleToast('Adding of ingredient canceled');
+            });
+            $scope.$watch(function() {
+                return $mdMedia('xs') || $mdMedia('sm');
+            }, function(wantsFullScreen) {
+                $scope.customFullscreen = (wantsFullScreen === true);
+            })
+        };
+
         $scope.addNewIngredient = function() {
-            $scope.ingrediens.push({});
+
+            $mdDialog.hide();
         };
 
         $scope.removeIngredient = function() {
             var lastItem = $scope.ingrediens.length-1;
             $scope.ingrediens.splice(lastItem);
         };
+        /*
+        $scope.addNewIngredient = function() {
+            //$scope.recipe.ingredients.push($scope.ingredient);
+            $scope.ingrediens.push({name: 'Cola', price: 1.20, quantity: 4});
+            showSimpleToast($scope.ingredient.name + " added to recipe!");
+            $mdDialog.cancel();
+            console.log($scope.ingrediens.length)
+        };
+
+        $scope.removeIngredient = function() {
+            var lastItem = $scope.recipe.ingrediens.length-1;
+            $scope.recipe.ingrediens.splice(lastItem);
+        };
+         */
+        $scope.cancelDialog = function(){
+            $mdDialog.cancel();
+            showSimpleToast("Adding new ingredient canceled");
+        }
 
         $scope.addNewStep = function(ev) {
             var confirm = $mdDialog.prompt()
@@ -44,7 +81,6 @@ angular.module('myApp.create')
             }, function() {
                 showSimpleToast("Adding new step canceled");
             });
-            console.log("Test");
         };
 
         $scope.removeStep = function() {
