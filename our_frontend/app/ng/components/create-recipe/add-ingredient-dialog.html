@@ -1,0 +1,38 @@
+<md-dialog ng-controller="CreateRecipeCtrl" aria-label="Add Ingredient to Recipe"  ng-cloak>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Add Ingredient to Recipe</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancelDialog()">
+                    <md-icon md-svg-src="icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-input-container >
+                    <label>Name</label>
+                    <input ng-model="ingredient.name">
+                </md-input-container>
+                <md-input-container >
+                    <label>Price</label>
+                    <input ng-model="ingredient.price">
+                </md-input-container>
+                <md-input-container >
+                    <label>Quantity</label>
+                    <input ng-model="ingredient.quantity">
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="cancelDialog()">
+                Cancel
+            </md-button>
+            <md-button ng-click="addNewIngredient()">
+                Add Ingredient
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
