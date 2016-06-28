@@ -1,3 +1,6 @@
+module.exports = ingredientRoutes;
+
+
 function ingredientRoutes(passport) {
 
     var ingredientController = require('./ingredientController');
@@ -10,13 +13,14 @@ function ingredientRoutes(passport) {
     //middleware
     router.use(mw.unless({method: ['GET', 'OPTIONS']}));
 
-    router.route('/ingredient')
+    router.route('/ingredients')
         .post(ingredientController.postIngredient)
-        .get(ingredientController.getIngredient);
+        .get(ingredientController.getIngredients);
 
     router.route('/ingredient/:ingredient_id')
         .get(ingredientController.getIngredient)
         .put(ingredientController.putIngredient)
         .delete(ingredientController.deleteIngredient);
+
     return router;
 }
