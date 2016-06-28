@@ -34,7 +34,7 @@ module.exports.getIngredients = function(req, res) {
 };
 
 
-// Create endpoint /api/ingredient/:ingredient_id for GET
+// Create endpoint /api/ingredients/:ingredient_id for GET
 exports.getIngredient = function(req, res) {
     // Use the Beer model to find a specific beer
     Ingredient.findById(req.params.ingredient_id, function(err, ingredient) {
@@ -47,7 +47,7 @@ exports.getIngredient = function(req, res) {
     });
 };
 
-// Create endpoint /api/ingredient/:ingredient_id for PUT
+// Create endpoint /api/ingredients/:ingredient_id for PUT
 exports.putIngredient = function(req, res) {
     // Use the Beer model to find a specific beer
     Ingredient.findByIdAndUpdate(
@@ -68,7 +68,7 @@ exports.putIngredient = function(req, res) {
 
 };
 
-// Create endpoint /api/ingredient/:ingredient_id for DELETE
+// Create endpoint /api/ingredients/:ingredient_id for DELETE
 exports.deleteIngredient = function(req, res) {
     // Use the Beer model to find a specific beer and remove it
     Ingredient.findById(req.params.ingredient_id, function(err, m) {
