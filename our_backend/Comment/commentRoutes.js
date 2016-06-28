@@ -12,11 +12,11 @@ function commentRoutes(passport) {
     //middleware
     router.use(mw.unless({method: ['GET', 'OPTIONS']}));
 
-    router.route('/comment')
+    router.route('/comments')
         .post(commentController.postComment)
         .get(commentController.getComments);
 
-    router.route('/comment/:comment_id')
+    router.route('/comments/:comment_id')
         .get(commentController.getComment)
         .put(commentController.putComment)
         .delete(commentController.deleteComment);
