@@ -17,7 +17,7 @@ function ingredientRoutes(passport) {
         .post(ingredientController.postIngredient)
         .get(ingredientController.getIngredients);
 
-    router.route('/ingredient/:ingredient_id')
+    router.route('/ingredients/:ingredient_id')
         .get(ingredientController.getIngredient)
         .put(ingredientController.putIngredient)
         .delete(ingredientController.deleteIngredient);
