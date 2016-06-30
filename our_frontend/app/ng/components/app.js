@@ -15,13 +15,15 @@ angular.module('myApp', ['ui.router', 'myApp.recipes', 'myApp.home', 'myApp.crea
             .theme('default')
             .primaryPalette('teal')
             .accentPalette('pink')
-            .warnPalette('red')
-            .backgroundPalette('blue-grey');
+            .warnPalette('red');
 
         $mdThemingProvider.theme('docs-dark', 'default')
             .primaryPalette('yellow')
             .dark();
 
+        //$mdThemingProvider.theme('recipe-list').backgroundPalette('lime').dark();
+
+        $mdThemingProvider.alwaysWatchTheme(true);
 
         $stateProvider
             .state('root', {

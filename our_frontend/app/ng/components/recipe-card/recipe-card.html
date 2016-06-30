@@ -1,23 +1,17 @@
+<img class="md-card-image" ng-src="{{recipe.thumbnailImageId}}"/>
 <md-card-title>
-
     <md-card-title-text>
         <span class="md-headline">{{recipe.title}}</span>
-        <!--<span class="md-subhead"></span>-->
+        <span class="md-subhead">by {{recipe.user.username}}</span>
     </md-card-title-text>
-    <md-card-title-media>
-        <img class="mv-card-pic" ng-src="{{recipe.thumbnailImageId}}" />
-
-    </md-card-title-media>
 </md-card-title>
 <md-card-content>
-    Date: {{"05-06-2016"}} | Rating: {{recipe.rating}} | Created By: {{recipe.user.username}}
+    Date: {{"05-06-2016"}} | Rating: {{recipe.rating}}
 </md-card-content>
 <md-card-actions layout="row" layout-align="end center">
     <md-button class="md-ink-ripple md-accent" ui-sref="recipes.detail({recipeId: recipe._id})">
         Details
     </md-button>
 </md-card-actions>
-
-<!--<a class="mdl-button mdl-button&#45;&#45;colored mdl-js-button mdl-js-ripple-effect" href="#/movies/{{movie._id}}">-->
 
 
