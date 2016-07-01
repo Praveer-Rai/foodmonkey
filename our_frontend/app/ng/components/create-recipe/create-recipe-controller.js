@@ -62,7 +62,7 @@ angular.module('myApp.create')
                     $scope.recipeIngredients = sharedIngredientList.getsharedIngredientList();
                     console.log(sharedIngredientList.getsharedIngredientList());
                 }, function() {
-                    $scope.cancelDialog();
+
                 });
             $scope.$watch(function() {
                 return $mdMedia('xs') || $mdMedia('sm');
@@ -81,12 +81,15 @@ angular.module('myApp.create')
                 }
             }else{
                 console.log("create new ingredient")
+                var newIngredient = new Ingredient();
+                newIngredient.name = $scope.searchText;
+                newIngredient.quantity = $scope.quantity;
+                Ingredient.save(newIngredient, function(response){
+                    console.log(response._id);
+                });
             }
             showSimpleToast($scope.searchText + ' added');
             $mdDialog.hide();
-            //console.log($scope.searchText);
-            //console.log($scope.selectedItem);
-            // create new Ingredient if selectedItem == null
         };
 
         $scope.removeIngredient = function() {
@@ -131,6 +134,7 @@ angular.module('myApp.create')
 
         $scope.save = function() {
             $scope.recipe.user = currUser.getUser()._id;
+            $scope.recipe.ingredients = $scope.recipeIngredients;
             Recipe.save($scope.recipe, function(response){
                 console.log(response);
             });
