@@ -21,7 +21,7 @@ angular.module('myApp.create')
         var ins = [];
 
         return {
-            getsharedIngredientList: function () {
+            getSharedIngredientList: function () {
                 return ins;
             },
             addSharedIngredient: function(value) {
