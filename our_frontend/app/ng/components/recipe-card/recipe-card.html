@@ -1,8 +1,8 @@
-<img class="md-card-image" layout-padding ng-src="{{recipe.thumbnailImageId}}"/>
+<img class="md-card-image recipe-card-img" layout-padding ng-src="{{recipe.thumbnailImageId}}"/>
 <md-card-title>
     <md-card-title-text>
         <span class="md-headline">{{recipe.title}}</span>
-        <p><jk-rating-stars rating="recipe.rating" read-only="true" ></jk-rating-stars></p>
+        <p><jk-rating-stars rating="recipe.rating" read-only="true" layout-wrap></jk-rating-stars></p>
     </md-card-title-text>
 </md-card-title>
 <md-card-content>
