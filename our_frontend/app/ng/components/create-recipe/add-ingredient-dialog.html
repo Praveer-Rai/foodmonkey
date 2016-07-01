@@ -11,17 +11,24 @@
         </md-toolbar>
         <md-dialog-content>
             <div class="md-dialog-content">
-                <md-input-container >
-                    <label>Name</label>
-                    <input ng-model="ingredient.name">
-                </md-input-container>
-                <md-input-container >
-                    <label>Price</label>
-                    <input ng-model="ingredient.price">
-                </md-input-container>
+                <md-autocomplete flex required
+                                 md-input-name="autocompleteField"
+                                 md-input-minlength="2"
+                                 md-input-maxlength="18"
+                                 md-no-cache="noCache"
+                                 md-selected-item="selectedItem"
+                                 md-search-text="searchText"
+                                 md-items="item in querySearch(searchText)"
+                                 md-item-text="item.display"
+                                 md-floating-label="Name">
+                    <md-item-template>
+                        <span md-highlight-text="searchText">{{item.display}}</span>
+                    </md-item-template>
+
+                </md-autocomplete>
                 <md-input-container >
                     <label>Quantity</label>
-                    <input ng-model="ingredient.quantity">
+                    <input ng-model="quantity">
                 </md-input-container>
             </div>
         </md-dialog-content>

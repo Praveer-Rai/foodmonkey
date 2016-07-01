@@ -7,5 +7,5 @@
 angular.module('myApp.recipes')
 
     .factory('Ingredient', function($resource) {
-        return $resource('http://localhost:3000/api/ingredient/:ingredient_id', {ingredient_id: '@_id'});
+        return $resource('http://localhost:3000/api/ingredients/:ingredient_id', {ingredient_id: '@_id'});
     });
