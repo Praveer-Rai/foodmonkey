@@ -16,30 +16,26 @@
                     <textarea ng-model="recipe.description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
                 </md-input-container>
                 <div>
-                    <div ng-repeat="i in ingrediens">
+                    <div ng-repeat="i in recipeIngredients">
                         <md-input-container >
                             <label>Name</label>
                             <input ng-model="i.name">
-                            <button class="remove" ng-show="$last" ng-click="removeIngredient()">-</button>
-                        </md-input-container>
-                        <md-input-container >
-                            <label>Price</label>
-                            <input ng-model="i.price">
                         </md-input-container>
                         <md-input-container >
                             <label>Quantity</label>
                             <input ng-model="i.quantity">
                         </md-input-container>
+                        <md-button class="md-warn md-raised md-hue-2" ng-show="$last" ng-click="removeIngredient()">-</md-button>
                     </div>
-                    <md-button class="md-accent md-raised md-hue-1" ng-click="addNewIngredient()">Add Ingredient</md-button>
+                    <md-button class="md-accent md-raised md-hue-1" ng-click="showAddIngredientDialog()">Add Ingredient</md-button>
                 </div>
                 <div>
                     <div ng-repeat="step in recipe.steps track by $index">
                         <md-input-container >
                             <label>Step</label>
                             <input ng-model="step">
-                            <button class="md-raised md-warn" ng-show="$last" ng-click="removeStep()">-</button>
                         </md-input-container>
+                        <md-button class="md-accent md-raised md-hue-1" ng-show="$last" ng-click="removeStep()">-</md-button>
                     </div>
                     <md-button class="md-accent md-raised md-hue-1" ng-click="addNewStep($event)">Add Step</md-button>
                 </div>
@@ -59,7 +55,7 @@
                 </div>
                 <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
                     <md-button class="md-raised md-primary" ng-click="save()">Save</md-button>
-                    <md-button class="md-raised">Cancel</md-button>
+                    <md-button class="md-raised" ng-click="cancel()">Cancel</md-button>
                 </section>
             </form>
         </div>
