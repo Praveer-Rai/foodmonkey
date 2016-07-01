@@ -2,16 +2,18 @@
 <md-card-title>
     <md-card-title-text>
         <span class="md-headline">{{recipe.title}}</span>
-        <span class="md-subhead">by {{recipe.user.username}}</span>
+        <p><jk-rating-stars rating="recipe.rating" read-only="true" ></jk-rating-stars></p>
     </md-card-title-text>
 </md-card-title>
 <md-card-content>
-    Date: {{"05-06-2016"}} | Rating: {{recipe.rating}}
+    Date: {{"05-06-2016"}} | by {{recipe.user.username}}
 </md-card-content>
 <md-card-actions layout="row" layout-align="end center">
     <md-button class="md-ink-ripple md-accent" ui-sref="recipes.detail({recipeId: recipe._id})">
         Details
     </md-button>
 </md-card-actions>
+
+
 
 

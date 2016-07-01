@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('myApp', ['ui.router', 'myApp.recipes', 'myApp.home', 'myApp.create', 'templates', 'ngMaterial', 'ngMessages'])
+angular.module('myApp', ['ui.router', 'myApp.recipes', 'myApp.home', 'myApp.create', 'templates', 'ngMaterial', 'ngMessages', 'jkAngularRatingStars'])
 
     .config(function($stateProvider, $mdThemingProvider ,$urlRouterProvider, $mdIconProvider, $resourceProvider, $httpProvider) {
 
