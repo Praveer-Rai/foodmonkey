@@ -3,7 +3,7 @@
  */
 
 angular.module('myApp.create')
-    .controller('CreateRecipeCtrl', function($scope, $timeout, Recipe, $http, Ingredient, ingredientService, sharedIngredientList, $mdDialog, $rootScope, currUser, $mdToast, $mdMedia) {
+    .controller('CreateRecipeCtrl', function($scope, Comment, $timeout, Recipe, $http, Ingredient, ingredientService, sharedIngredientList, $mdDialog, $rootScope, currUser, $mdToast, $mdMedia) {
 
         $scope.recipe = new Recipe();
         $scope.recipe.steps = [];
@@ -145,6 +145,16 @@ angular.module('myApp.create')
         $scope.save = function() {
             $scope.recipe.user = currUser.getUser()._id;
             $scope.recipe.ingredients = $scope.recipeIngredients;
+            var newComment = new Comment();
+            newComment.creator = currUser.getUser()._id;
+            newComment.text = 'Testes super good! Thanks buddy';
+            var commentResult = null;
+            Comment.save(newComment, function(response){
+               console.log(response);
+                //commentResult = response;
+            });
+            $scope.recipe.comments = [];
+            //$scope.recipe.comments.push(commentResult._id);
             Recipe.save($scope.recipe, function(response){
                 console.log(response);
             });
