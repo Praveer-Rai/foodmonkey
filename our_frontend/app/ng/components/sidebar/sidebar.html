@@ -1,0 +1,51 @@
+<md-sidenav class="md-sidenav-left md-whiteframe-z2"
+            md-component-id="left">
+    <md-toolbar layout="row">
+        <div class="md-toolbar-tools">
+            <h2>
+                <span>Side Panel</span>
+            </h2>
+            <span flex></span>
+            <md-button class="md-icon-button" aria-label="Close Side Panel" ng-click="closeSideNavPanel()">
+                <md-tooltip>Close Side Panel</md-tooltip>
+                <md-icon class="md-default-theme" class="material-icons">&#xE5CD;</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content layout-padding="">
+        <md-list>
+            <md-subheader class="md-no-sticky">Browse recipes</md-subheader>
+            <md-list-item>
+                <md-icon class="md-default-theme" class="material-icons">&#xE892;</md-icon>
+                <p>All recipes</p>
+            </md-list-item>
+            <md-list-item class="sidebarPadLeft">
+                <md-icon class="md-default-theme" class="material-icons">&#xE893;</md-icon>
+                <p>Italian</p>
+            </md-list-item>
+            <md-list-item class="sidebarPadLeft">
+                <md-icon class="md-default-theme" class="material-icons">&#xE893;</md-icon>
+                <p>Mexican</p>
+            </md-list-item>
+            <md-list-item class="sidebarPadLeft">
+                <md-icon class="md-default-theme" class="material-icons">&#xE893;</md-icon>
+                <p>Thai</p>
+            </md-list-item>
+            <md-list-item class="sidebarPadLeft">
+                <md-icon class="md-default-theme" class="material-icons">&#xE893;</md-icon>
+                <p>German</p>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-subheader class="md-no-sticky">Account setting</md-subheader>
+            <md-list-item>
+                <md-icon class="md-default-theme" class="material-icons">&#xE7F9;</md-icon>
+                <p>Profile</p>
+            </md-list-item>
+            <md-list-item>
+                <md-icon class="md-default-theme" class="material-icons">&#xE87D;</md-icon>
+                <p>Saved Recipes</p>
+                <div class="md-secondary">15</div>
+            </md-list-item>
+        </md-list>
+    </md-content>
+</md-sidenav>
