@@ -64,7 +64,7 @@ gulp.task('frontend-libs-copy', function() {
 
     var other_libs = all_libs
         .pipe(js_filter_i)
-        .pipe(gulp.dest('C:/xampp/htdocs/public/libs'));
+        .pipe(gulp.dest('./public/libs'));
 
     /**
      * suspend minification due to chrome bug
@@ -76,14 +76,14 @@ gulp.task('frontend-libs-copy', function() {
         .pipe(concat('libs.js'))
         //.pipe(uglify())
         //.pipe(sourcemaps.write())
-        .pipe(gulp.dest('C:/xampp/htdocs/public/libs'));
+        .pipe(gulp.dest('./public/libs'));
 
     return merge(other_libs, js_libs);
 });
 
 gulp.task('app-js', function () {
     //first list files that define new modules. the module definitions must be at the beginning
-    return gulp.src(['app/ng/**/app.js', 'app/ng/components/create-recipe/create-recipe-module.js', 'app/ng/components/recipes/recipes-module.js', 'app/ng/**/*.js'])
+    return gulp.src(['app/ng/**/app.js', 'app/ng/components/recipes/recipes-module.js', 'app/ng/**/*.js'])
         .pipe(plumber())
         /*
         suspend minification, since angular cannot handle sourcemaps in errors https://github.com/angular/angular.js/issues/5217#issuecomment-50993513
@@ -93,7 +93,7 @@ gulp.task('app-js', function () {
         .pipe(ngAnnotate())
         //.pipe(uglify())
         //.pipe(sourcemaps.write())
-        .pipe(gulp.dest('C:/xampp/htdocs/public/js'))
+        .pipe(gulp.dest('./public/js'))
 })
 
 gulp.task('app-templates', function () {
@@ -103,7 +103,7 @@ gulp.task('app-templates', function () {
         .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('C:/xampp/htdocs/public/js'));
+        .pipe(gulp.dest('./public/js'));
 });
 
 var MAIN_TASKS = ['app-js', 'app-templates', 'frontend-libs-copy', 'sass'];
