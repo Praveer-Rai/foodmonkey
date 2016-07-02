@@ -33,7 +33,12 @@ angular.module('myApp.recipes')
     .controller('RecipeDetailCtrl', function($scope, Recipe, Comment, CommentService, $mdToast, $rootScope, $mdDialog, $stateParams, $state, currUser) {
 
         $scope.recipe = Recipe.get({recipeId: $stateParams.recipeId});
-        $scope.comments = CommentService.getComments();
+
+        CommentService.getComments()
+            .success(function(data){
+            $scope.comments = data;
+                console.log($scope.comments[0]);
+        });
 
         this.commentText = '';
 
@@ -123,7 +128,7 @@ angular.module('myApp.recipes')
             var newComment = new Comment();
 
             newComment.txt = this.commentText;
-            newComment.creator = currUser.getUser()._id;
+            newComment.creator = currUser.getUser();
             newComment.forRecipe = $stateParams.recipeId;
 
             $scope.recipe.comments.push(newComment);
@@ -136,6 +141,8 @@ angular.module('myApp.recipes')
                 console.log(response);
             });
 
+            this.commentText = null;
+            
             showSimpleToast('New Comment Added Sucessfully');
 
         }
