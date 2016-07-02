@@ -3,7 +3,7 @@ angular.module('myApp')
         return {
             restrict: "A",
             templateUrl: "components/sidebar/sidebar.html",
-            controller: function($scope, $mdSidenav) {
+            controller: function($scope, $mdSidenav, FilterService) {
                 $scope.showMobileMainHeader = true;
                 $scope.openSideNavPanel = function() {
                     $mdSidenav('left').open();
@@ -11,6 +11,7 @@ angular.module('myApp')
                 $scope.closeSideNavPanel = function() {
                     $mdSidenav('left').close();
                 };
+                $scope.filters = FilterService.query();
             }
         }
     });

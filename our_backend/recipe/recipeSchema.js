@@ -33,7 +33,8 @@ var Recipe   = new mongoose.Schema({
         ref: 'Comment'
     }],
     mainImageId: String,
-    thumbnailImageId: String
+    thumbnailImageId: String,
+    recipeType: String
 });
 
 // Export the Mongoose model

@@ -12,28 +12,25 @@
             </md-button>
         </div>
     </md-toolbar>
-    <md-content layout-padding="">
+    <md-content layout-padding>
         <md-list>
             <md-subheader class="md-no-sticky">Browse recipes</md-subheader>
             <md-list-item>
-                <md-icon class="md-default-theme" class="material-icons">&#xE892;</md-icon>
-                <p>All recipes</p>
+                <md-icon class="md-default-theme sidebarIconFix" class="material-icons">&#xE556;</md-icon>
+                <p>Browse Recipes</p>
             </md-list-item>
             <md-list-item class="sidebarPadLeft">
-                <md-icon class="md-default-theme" class="material-icons">&#xE893;</md-icon>
-                <p>Italian</p>
+                <md-icon class="md-default-theme sidebarIconFix" class="material-icons">&#xE893;</md-icon>
+                <a href="/#/recipes" class="sideBarAhrefFix" ng-click="closeSideNavPanel()">All Recipes</a>
             </md-list-item>
-            <md-list-item class="sidebarPadLeft">
-                <md-icon class="md-default-theme" class="material-icons">&#xE893;</md-icon>
-                <p>Mexican</p>
+            <md-list-item class="sidebarPadLeft sideBarAhrefFix" ng-repeat="filter in filters">
+                <md-icon class="md-default-theme sidebarIconFix" class="material-icons">&#xE893;</md-icon>
+                <a href="/#/recipes/{{filter}}" class="sideBarAhrefFix" ng-click="closeSideNavPanel()">{{filter}}</a>
             </md-list-item>
-            <md-list-item class="sidebarPadLeft">
-                <md-icon class="md-default-theme" class="material-icons">&#xE893;</md-icon>
-                <p>Thai</p>
-            </md-list-item>
-            <md-list-item class="sidebarPadLeft">
-                <md-icon class="md-default-theme" class="material-icons">&#xE893;</md-icon>
-                <p>German</p>
+            <md-divider></md-divider>
+            <md-list-item>
+                <md-icon class="md-default-theme" class="material-icons">&#xE89C;</md-icon>
+               <p> <a href="/#/create" class="sideBarAhrefFix" ng-click="closeSideNavPanel()">Create Recipe</a></p>
             </md-list-item>
             <md-divider></md-divider>
             <md-subheader class="md-no-sticky">Account setting</md-subheader>

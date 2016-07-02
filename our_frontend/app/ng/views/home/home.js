@@ -24,7 +24,7 @@ angular.module('myApp.home')
 
         }
 
-    })
+    });
 
 
 
