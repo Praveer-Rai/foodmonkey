@@ -1,4 +1,4 @@
-angular.module('myApp.recipes', ['ngResource', 'ui.router'])
+angular.module('myApp.orders', ['ngResource', 'ui.router'])
 
 .config(function ($stateProvider, $urlRouterProvider, orderState) {
     $stateProvider

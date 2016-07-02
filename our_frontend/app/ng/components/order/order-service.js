@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.recipes')
+angular.module('myApp.orders')
     
 .factory('OrderService', function($resource) {
     return $resource('http://localhost:3000/api/orders');

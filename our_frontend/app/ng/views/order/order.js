@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.recipes')
+angular.module('myApp.orders')
 
     .constant('orderState', {
         name: 'orders.list',
