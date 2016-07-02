@@ -4,7 +4,6 @@ angular.module('myApp')
             restrict: "A",
             templateUrl: "components/sidebar/sidebar.html",
             controller: function($scope, $mdSidenav, FilterService) {
-                $scope.showMobileMainHeader = true;
                 $scope.openSideNavPanel = function() {
                     $mdSidenav('left').open();
                 };
