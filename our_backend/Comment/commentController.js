@@ -7,11 +7,6 @@ exports.postComment = function(req, res) {
 
     var comment = new Comment(req.body);
 
-    //do not allow user to fake identity. The user who postet the movie must be the same user that is logged in
-    if (!req.user.equals(comment.user)) {
-        res.sendStatus(401);
-    }
-
     comment.save(function(err, m) {
         if (err) {
             res.status(500).send(err);
@@ -24,7 +19,9 @@ exports.postComment = function(req, res) {
 
 // Create endpoint /api/Comment for GET
 exports.getComments = function(req, res) {
-    Comment.find(req.params.recipe_id, function(err, comments) {
+    Comment.find(
+        {forRecipe: req.query.recipeId},
+        function(err, comments) {
         if (err) {
             res.status(500).send(err);
             return;
@@ -37,7 +34,9 @@ exports.getComments = function(req, res) {
 // Create endpoint /api/movies/:movie_id for GET
 exports.getComment = function(req, res) {
     // Use the Beer model to find a specific beer
-    Comment.findById(req.params.comment_id, function(err, comment) {
+    Comment.findById(
+        {_id: req.params.comment_id},
+        function(err, comment) {
         if (err) {
             res.status(500).send(err)
             return;

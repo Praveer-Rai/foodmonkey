@@ -4,6 +4,10 @@
 
 <div layout="row" layout-padding layout-align="space-between center">
     <div>
+        <md-button href="javascript:" aria-label="Side Panel" ng-click="openSideNavPanel()">
+            <md-tooltip>Side Panel</md-tooltip>
+            <md-icon class="md-default-theme" class="material-icons">&#xE5D2;</md-icon>
+        </md-button>
         <md-button href="/#">Home</md-button>
         <md-button href="/#/recipes">Browse Recipes</md-button>
         <md-button href="/#/create" ng-if="loggedIn">Create Recipe</md-button>

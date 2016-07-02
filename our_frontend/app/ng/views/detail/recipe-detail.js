@@ -30,11 +30,12 @@ angular.module('myApp.recipes')
 
         }
     })
-    .controller('RecipeDetailCtrl', function($scope, Recipe, $mdToast, $rootScope, $mdDialog, $stateParams, $state, currUser, $http) {
+    .controller('RecipeDetailCtrl', function($scope, Recipe, Comment, CommentService, $mdToast, $rootScope, $mdDialog, $stateParams, $state, currUser) {
 
         $scope.recipe = Recipe.get({recipeId: $stateParams.recipeId});
+        $scope.comments = CommentService.getComments();
 
-        $scope.comment = new Comment();
+        this.commentText = '';
 
         $scope.mayDelete;
         $scope.mayEdit = currUser.loggedIn();
@@ -103,7 +104,7 @@ angular.module('myApp.recipes')
             $mdToast.show(
                 $mdToast.simple()
                     .textContent(txt)
-                    .position('bottom')
+                    .position('bottom right')
                     .hideDelay(3000)
             );
         }
@@ -119,16 +120,23 @@ angular.module('myApp.recipes')
 
         function addNewComment() {
 
-            $scope.comment.creator = currUser.getUser()._id;
+            var newComment = new Comment();
 
-            showSimpleToast($scope.command.text);
-            /*
-                TO-DO: REST PUT with recipe containing the comment inside its commands array
-            /*
-            return $scope.post('/recipes/:recipe_id', recipe)
-                .success(function(){
-                    console.log('New Comment Added');
-                })
-            */
+            newComment.txt = this.commentText;
+            newComment.creator = currUser.getUser()._id;
+            newComment.forRecipe = $stateParams.recipeId;
+
+            $scope.recipe.comments.push(newComment);
+
+            Comment.save(newComment, function(res){
+                console.log(res._id);
+            });
+
+            Recipe.save($scope.recipe, function(response){
+                console.log(response);
+            });
+
+            showSimpleToast('New Comment Added Sucessfully');
+
         }
     });

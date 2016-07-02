@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
     recipeSchema = require('../recipe/recipeSchema'),
     userSchema = require('../user/userSchema'),
     ingredientSchema = require('../ingredient/ingredientSchema'),
-    commentSchema = require('./commentSchema');;
+    commentSchema = require('../comment/commentSchema');;
 
 var db = mongoose.connection;
 mongoose.connect([Config.db.host, '/', Config.db.name].join(''),{

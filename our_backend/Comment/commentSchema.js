@@ -4,10 +4,14 @@ var Schema = mongoose.Schema;
 
 var commentSchema = new Schema ({
     
-    text: String,
+    txt: String,
     creator:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    forRecipe:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Recipe'
     }
 });
 

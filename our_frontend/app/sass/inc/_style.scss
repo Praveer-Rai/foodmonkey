@@ -4,9 +4,12 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
-md-card>img, md-card>:not(md-card-content) img {
-	width: 290px !important;
-	height: 220px !important;
+.recipe-card-img {
+	height: 200px !important;
+}
+
+.sidebarPadLeft {
+	margin-left: 10px !important;
 }
 
 .recipe-detail-padding {
