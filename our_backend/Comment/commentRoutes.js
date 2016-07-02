@@ -13,7 +13,9 @@ function commentRoutes(passport) {
     router.use(mw.unless({method: ['GET', 'OPTIONS']}));
 
     router.route('/comments')
-        .post(commentController.postComment)
+        .post(commentController.postComment);
+
+    router.route('/comments/:recipeId')
         .get(commentController.getComments);
 
     router.route('/comments/:comment_id')

@@ -45,6 +45,7 @@
 
             <md-content>
                 <md-list>
+                    <!--
                     <md-list-item class="md-3-line">
                         <img ng-src="/images/blankuser.jpeg" class="md-avatar">
                         <div class="md-list-item-text">
@@ -61,11 +62,13 @@
                         </div>
                         <md-divider></md-divider>
                     </md-list-item>
+                    -->
 
                     <md-list-item class="md-3-line" ng-repeat="comment in comments">
                         <img ng-src="/images/blankuser.jpeg" class="md-avatar">
                         <div class="md-list-item-text">
-                            <p>{{comment.text}}</p>
+                            <h4>{{comment.creator.username}}:</h4>
+                            <p>{{comment.txt}}</p>
                         </div>
                         <md-divider></md-divider>
                     </md-list-item>
@@ -73,11 +76,11 @@
             </md-content>
         </div>
 
-        <div layout="row" layout-sm="column" layout-padding>
+        <div layout-sm="column" layout-padding>
             <form name="CommentForm" ng-submit="addNewComment()" ng-if="loggedIn">
-                <md-input-container class="md-block">
+                <md-input-container md-no-float class="md-block">
                     <label>Share your comments!</label>
-                    <input minlength="10" maxlength="50" required name="text" ng-model="comment.text">
+                    <input minlength="10" maxlength="50" required name="commentText" ng-model="commentText">
                     <div ng-messages="CommentForm.text.$error">
                         <div ng-message="required">This is required, and between 10-50 chars.</div>
                     </div>
@@ -86,9 +89,6 @@
             </form>
 
             <p ng-if="!loggedIn">Please log in to add comments</p>
-
-            <ul mv-comment-box class="comment-box" comment="comment" ng-repeat="comment in comments">{{comment.text}}
-            </ul>
 
         </div>
 
