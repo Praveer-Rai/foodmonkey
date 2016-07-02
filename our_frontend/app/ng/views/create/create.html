@@ -5,6 +5,7 @@
                 <div flex>
                     <md-input-container>
                         <label>Title</label>
+                        <md-icon md-svg-src="icons/ic_restaurant_white_24px.svg"></md-icon>
                         <input required name="title" md-maxlength="30" ng-model="recipe.title">
                         <div ng-messages="recipeForm.title.$error">
                             <div ng-message="required">Title is required.</div>
@@ -12,78 +13,81 @@
                         </div>
                     </md-input-container>
                 </div>
-                    <md-input-container >
-                        <md-button class="md-accent md-raised md-hue-1" ng-click="uploadPicture()">Upload Picture</md-button>
+                <choose-file layout="row" flex="20">
+                    <div>
+                        <md-button id="uploadButton" class="md-fab md-mini" ng-click="addPicture()">
+                            <md-icon class="material-icons">attach_file</md-icon>
+                        </md-button>
+                    </div>
+                    <input id="fileInput" type="file" class="ng-hide">
+                    <md-input-container flex class="md-block">
+                        <input type="text" ng-model="fileName" disabled style="width: auto">
+                        <div class="hint">Select your file</div>
                     </md-input-container>
+                </choose-file>
             </div>
         </md-content>
         <md-content layout-padding>
             <div>
-                <form name="recipeForm">
-                    <md-input-container class="md-block">
-                        <label>Descritption</label>
-                        <textarea required name="desc" ng-model="recipe.description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
-                        <div ng-messages="recipeForm.desc.$error">
-                            <div ng-message="required">Description is required.</div>
-                            <div ng-message="md-maxlength">The description has to be less than 150 characters long.</div>
+                <md-input-container class="md-block">
+                    <label>Description</label>
+                    <md-icon md-svg-src="icons/ic_description_black_24px.svg"></md-icon>
+                    <textarea required name="desc" ng-model="recipe.description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                    <div ng-messages="recipeForm.desc.$error">
+                        <div ng-message="required">Description is required.</div>
+                        <div ng-message="md-maxlength">The description has to be less than 150 characters long.</div>
+                    </div>
+                </md-input-container>
+                <div>
+                    <div ng-repeat="i in recipeIngredients">
+                        <md-input-container >
+                            <label>Name</label>
+                            <input ng-readonly="true" ng-model="i.name">
+                        </md-input-container>
+                        <md-input-container >
+                            <label>Quantity</label>
+                            <input ng-readonly="true" ng-model="i.quantity">
+                        </md-input-container>
+                        <md-button class="md-warn md-raised md-hue-2" ng-show="$last" ng-click="removeIngredient()">-</md-button>
+                    </div>
+                    <md-button class="md-accent md-raised md-hue-1" ng-click="showAddIngredientDialog()">Add Ingredient</md-button>
+                </div>
+                <div>
+                    <div ng-repeat="step in recipe.steps track by $index">
+                        <md-input-container >
+                            <label>Step</label>
+                            <input ng-readonly="true" ng-model="step">
+                        </md-input-container>
+                        <md-button class="md-warn md-raised md-hue-2" ng-show="$last" ng-click="removeStep()">-</md-button>
+                    </div>
+                    <md-button class="md-accent md-raised md-hue-1" ng-click="addNewStep($event)">Add Step</md-button>
+                </div>
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Difficulty</label>
+                        <md-icon md-svg-src="icons/ic_local_library_black_24px.svg"></md-icon>
+                        <md-select required name="diff" ng-model="recipe.difficulty">
+                            <md-option ng-repeat="diff in difficulties" value="{{diff.abbrev}}">
+                                {{diff.abbrev}}
+                            </md-option>
+                        </md-select>
+                        <div ng-messages="recipeForm.diff.$error">
+                            <div ng-message="required">Please select a difficulty</div>
                         </div>
                     </md-input-container>
-                    <div>
-                        <div ng-repeat="i in recipeIngredients">
-                            <md-input-container >
-                                <label>Name</label>
-                                <input ng-model="i.name">
-                            </md-input-container>
-                            <md-input-container >
-                                <label>Quantity</label>
-                                <input ng-model="i.quantity">
-                            </md-input-container>
-                            <md-button class="md-warn md-raised md-hue-2" ng-show="$last" ng-click="removeIngredient()">-</md-button>
-                        </div>
-                        <md-button class="md-accent md-raised md-hue-1" ng-click="showAddIngredientDialog()">Add Ingredient</md-button>
-                    </div>
-                    <md-divider md-inset ng-if="!$first"></md-divider>
-                    <div>
-                        <div ng-repeat="step in recipe.steps track by $index">
-                            <md-input-container >
-                                <label>Step</label>
-                                <input ng-model="step">
-                            </md-input-container>
-                            <md-button class="md-warn md-raised md-hue-2" ng-show="$last" ng-click="removeStep()">-</md-button>
-                        </div>
-                        <md-button class="md-accent md-raised md-hue-1" ng-click="addNewStep($event)">Add Step</md-button>
-                    </div>
-                    <div layout-gt-sm="row">
-                        <md-input-container class="md-block" flex-gt-sm>
-                            <label>Difficulty</label>
-                            <md-select required name="diff" ng-model="recipe.difficulty">
-                                <md-option ng-repeat="diff in difficulties" value="{{diff.abbrev}}">
-                                    {{diff.abbrev}}
-                                </md-option>
-                            </md-select>
-                        </md-input-container>
-                        <div ng-messages="recipeForm.diff.$error">
+                    <md-input-container class="md-icon-float md-icon-right md-block">
+                        <label>Preparation Time (minutes)</label>
+                        <md-icon md-svg-src="icons/ic_alarm_black_24px.svg"></md-icon>
+                        <input required name="prepTime" ng-model="recipe.prepTime" type="number" step="1">
+                        <div ng-messages="recipeForm.prepTime.$error">
                             <div ng-message="required">Preparation Time is required.</div>
                         </div>
-                        <md-input-container class="md-block" flex-gt-sm>
-                            <label>Preparation Time</label>
-                            <input required name="prepTime" ng-model="recipe.prepTime">
-                            <div ng-messages="recipeForm.prepTime.$error">
-                                <div ng-message="required">Preparation Time is required.</div>
-                            </div>
-                        </md-input-container>
-                        <md-input-container class="md-icon-float md-icon-right md-block">
-                            <label>Donation Amount</label>
-                            <md-icon md-svg-src="img/icons/ic_card_giftcard_24px.svg"></md-icon>
-                            <input ng-model="user.donation" type="number" step="0.01">
-                            <md-icon md-svg-src="img/icons/ic_euro_24px.svg"></md-icon>
-                        </md-input-container>
-                    </div>
-                    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-                        <md-button class="md-raised md-primary" ng-click="save()">Save</md-button>
-                        <md-button class="md-raised" ng-click="cancel()">Cancel</md-button>
-                    </section>
-                </form>
+                    </md-input-container>
+                </div>
+                <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                    <md-button class="md-raised md-primary" ng-click="save()">Save</md-button>
+                    <md-button class="md-raised" ng-click="cancel()">Cancel</md-button>
+                </section>
             </div>
         </md-content>
     </form>

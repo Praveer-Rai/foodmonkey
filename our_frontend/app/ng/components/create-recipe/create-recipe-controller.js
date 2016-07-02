@@ -3,7 +3,7 @@
  */
 
 angular.module('myApp.create')
-    .controller('CreateRecipeCtrl', function($scope, Comment, $timeout, Recipe, $http, Ingredient, ingredientService, sharedIngredientList, $mdDialog, $rootScope, currUser, $mdToast, $mdMedia) {
+    .controller('CreateRecipeCtrl', function($scope, $timeout, Recipe, Ingredient, ingredientService, sharedIngredientList, $mdDialog, $rootScope, currUser, $mdToast, $mdMedia) {
 
         $scope.recipe = new Recipe();
         $scope.recipe.steps = [];
@@ -128,6 +128,23 @@ angular.module('myApp.create')
             });
         };
 
+        $scope.addPicture = function(ev) {
+            var confirm = $mdDialog.prompt()
+                .title('Add Picture')
+                .textContent('Please enter picture URL here.')
+                .placeholder('URL')
+                .targetEvent(ev)
+                .cancel('Cancel')
+                .ok('Add Picture');
+            $mdDialog.show(confirm).then(function(result) {
+                showSimpleToast("Picture added")
+                $scope.recipe.thumbnailImageId = result;
+                $scope.recipe.mainImageId = result;
+            }, function() {
+                showSimpleToast("Adding picture canceled");
+            });
+        };
+
         $scope.removeStep = function() {
             var lastItem = $scope.recipe.steps.length-1;
             $scope.recipe.steps.splice(lastItem);
@@ -145,16 +162,7 @@ angular.module('myApp.create')
         $scope.save = function() {
             $scope.recipe.user = currUser.getUser()._id;
             $scope.recipe.ingredients = $scope.recipeIngredients;
-            var newComment = new Comment();
-            newComment.creator = currUser.getUser()._id;
-            newComment.text = 'Testes super good! Thanks buddy';
-            var commentResult = null;
-            Comment.save(newComment, function(response){
-               console.log(response);
-                //commentResult = response;
-            });
-            $scope.recipe.comments = [];
-            //$scope.recipe.comments.push(commentResult._id);
+            console.log($scope.recipe.prepTime);
             Recipe.save($scope.recipe, function(response){
                 console.log(response);
             });
