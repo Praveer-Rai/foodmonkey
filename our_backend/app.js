@@ -50,11 +50,13 @@ var recipeRoutes = require("./recipe/recipeRoutes");
 var ingredientRoutes = require("./ingredient/ingredientRoutes");
 var commentRoutes = require("./comment/commentRoutes");
 var filterRoutes = require("./filters/filterRoutes");
+var orderRoutes = require("./order/orderRoutes");
 
 app.use('/api', recipeRoutes(passport));
 app.use('/api', ingredientRoutes(passport));
 app.use('/api', commentRoutes(passport));
 app.use('/api', filterRoutes(passport));
+app.use('/api', orderRoutes(passport));
 app.use('/', userRoutes(passport));
 
 module.exports = app;

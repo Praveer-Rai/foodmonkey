@@ -1,9 +1,6 @@
 var mongoose = require('mongoose');
 
-var Schema = mongoose.Schema;
-
-var orderSchema = new Schema ({
-
+var Order = new mongoose.Schema({
     ingredients: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Ingredient'
@@ -22,4 +19,4 @@ var orderSchema = new Schema ({
     extraInfo: String
 });
 
-module.exports = mongoose.model('Order', orderSchema);
+module.exports = mongoose.model('Order', Order);

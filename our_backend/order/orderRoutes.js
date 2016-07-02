@@ -1,3 +1,6 @@
+module.exports = orderRoutes;
+
+
 function orderRoutes(passport) {
 
     var orderController = require('./orderController');
@@ -10,9 +13,9 @@ function orderRoutes(passport) {
     //middleware
     router.use(mw.unless({method: ['GET', 'OPTIONS']}));
 
-    router.route('/order')
+    router.route('/orders')
         .post(orderController.postOrder)
-        .get(orderController.getOrder);
+        .get(orderController.getOrders);
 
     router.route('/order/:order_id')
         .get(orderController.getOrder)

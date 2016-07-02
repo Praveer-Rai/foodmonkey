@@ -23,7 +23,7 @@ exports.postOrder = function(req, res) {
 };
 
 // Create endpoint /api/Order for GET
-exports.getOrder = function(req, res) {
+exports.getOrders = function(req, res) {
     Order.find(function(err, orders) {
         if (err) {
             res.status(500).send(err);
@@ -37,7 +37,7 @@ exports.getOrder = function(req, res) {
 // Create endpoint /api/order/:order_id for GET
 exports.getOrder = function(req, res) {
     // Use the Beer model to find a specific beer
-    Order.findById(req.params.order_id, function(err, movie) {
+    Order.findById(req.params.order_id, function(err, order) {
         if (err) {
             res.status(500).send(err)
             return;

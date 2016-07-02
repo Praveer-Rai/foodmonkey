@@ -30,7 +30,6 @@ angular.module('myApp')
                     else list.push(item);
 
                     $rootScope.selectedRecipeTypes = $scope.selected;
-                    console.log($scope.selected);
                 };
 
                 $scope.exists = function (item, list) {
