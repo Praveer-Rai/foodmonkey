@@ -3,7 +3,7 @@
  */
 
 angular.module('myApp.create')
-    .controller('CreateRecipeCtrl', function($scope, $timeout, Recipe, Ingredient, ingredientService, sharedIngredientList, $mdDialog, $rootScope, currUser, $mdToast, $mdMedia) {
+    .controller('CreateRecipeCtrl', function($scope, $timeout, Recipe, Ingredient, ingredientService, sharedIngredientList, $mdDialog, $rootScope, $location, currUser, $mdToast, $mdMedia) {
 
         $scope.recipe = new Recipe();
         $scope.recipe.steps = [];
@@ -166,11 +166,13 @@ angular.module('myApp.create')
             Recipe.save($scope.recipe, function(response){
                 console.log(response);
             });
+            showSimpleToast("New recipe created!");
+            $location.path('/recipes');
         };
 
         $scope.cancel = function() {
-            showSimpleToast("Creating canceled");
-            history.back();
+            showSimpleToast("Creation canceled");
+            $location.path('/recipes');
         };
 
     });

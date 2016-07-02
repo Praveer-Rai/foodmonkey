@@ -75,6 +75,14 @@
                             <div ng-message="required">Please select a difficulty</div>
                         </div>
                     </md-input-container>
+                    <md-input-container >
+                        <label>Type</label>
+                        <md-icon class="md-default-theme" class="material-icons">&#xE252;</md-icon>
+                        <input required name="type" ng-model="recipe.recypeType">
+                        <div ng-messages="recipeForm.type.$error">
+                            <div ng-message="required">Please enter a type</div>
+                        </div>
+                    </md-input-container>
                     <md-input-container class="md-icon-float md-icon-right md-block">
                         <label>Preparation Time (minutes)</label>
                         <md-icon md-svg-src="icons/ic_alarm_black_24px.svg"></md-icon>
@@ -85,7 +93,7 @@
                     </md-input-container>
                 </div>
                 <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-                    <md-button class="md-raised md-primary" ng-click="save()">Save</md-button>
+                    <md-button class="md-raised md-primary" ng-click="save()" ng-disabled="recipeForm.$invalid">Save</md-button>
                     <md-button class="md-raised" ng-click="cancel()">Cancel</md-button>
                 </section>
             </div>
