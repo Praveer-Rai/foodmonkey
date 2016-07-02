@@ -1,8 +1,16 @@
-<div layout="row" layout-wrap>
-    <md-content class="md-padding" layout="row" layout-wrap>
-        <md-card flex-xs flex-gt-xs="25" mv-recipe-card class="recipe-card" recipe="recipe"
-                 ng-repeat="recipe in recipes"
-                 md-theme="{{'recipe-list'}}" md-theme-watch>
-        </md-card>
-    </md-content>
+<div align="center">
+    <md-input-container>
+        <label>Search for recipes</label>
+        <md-icon class="md-default-theme" class="material-icons">&#xE8B6;</md-icon>
+        <input required name="title" md-maxlength="30" ng-model="searchText">
+    </md-input-container>
+    <input type="hidden" ng-model="recipeType">
 </div>
+<md-content class="md-padding" layout="row" flex-gt-xs="100" layout-wrap>
+    <md-card flex-xs flex-gt-xs="25" mv-recipe-card class="recipe-card" recipe="recipe"
+             ng-repeat="recipe in recipes | filter: filterArray | filter:searchText "
+             md-theme="{{'recipe-list'}}" md-theme-watch>
+    </md-card>
+</md-content>
+
+

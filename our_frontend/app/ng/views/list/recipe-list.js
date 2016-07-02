@@ -27,8 +27,14 @@ angular.module('myApp.recipes')
 
     })
 
-    .controller('RecipeListCtrl', function($scope, Recipe) {
+    .controller('RecipeListCtrl', function($rootScope, $scope, Recipe) {
         $scope.recipes = Recipe.query();
-
+        $scope.filterArray = function(recipe) {
+            if(typeof($rootScope.selectedRecipeTypes) !== 'undefined') {
+                if($rootScope.selectedRecipeTypes.length === 0) return true;
+                return ($rootScope.selectedRecipeTypes.indexOf(recipe.recipeType) !== -1);
+            } else
+                return true;
+        };
     })
 

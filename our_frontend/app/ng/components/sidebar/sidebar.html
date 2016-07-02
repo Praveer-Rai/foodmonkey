@@ -16,20 +16,20 @@
         <md-list>
             <md-list-item>
                 <md-icon class="md-default-theme sidebarIconFix" class="material-icons">&#xE556;</md-icon>
-                <p>Browse Recipes</p>
+                <p><a href="/#/recipes" class="sideBarAhrefFix" ng-click="enableFilters()">Browse Recipes</a></p>
             </md-list-item>
-            <md-list-item class="sidebarPadLeft">
-                <md-icon class="md-default-theme sidebarIconFix" class="material-icons">&#xE893;</md-icon>
-                <a href="/#/recipes" class="sideBarAhrefFix" ng-click="closeSideNavPanel()">All Recipes</a>
-            </md-list-item>
-            <md-list-item class="sidebarPadLeft" ng-repeat="filter in filters">
-                <md-icon class="md-default-theme sidebarIconFix" class="material-icons">&#xE893;</md-icon>
-                <a href="/#/recipes" class="sideBarAhrefFix" ng-click="closeSideNavPanel()">{{filter}}</a>
-            </md-list-item>
+            <div ng-show="showFilters">
+                <md-list-item class="sidebarPadLeft" ng-repeat="item in filters">
+                    <md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected)">
+                        {{ item }} <span ng-if="exists(item, selected)">selected</span>
+                    </md-checkbox>
+                    {{ item }}
+                </md-list-item>
+            </div>
             <md-divider></md-divider>
             <md-list-item>
                 <md-icon class="md-default-theme" class="material-icons">&#xE89C;</md-icon>
-               <p> <a href="/#/create" class="sideBarAhrefFix" ng-click="closeSideNavPanel()">Create Recipe</a></p>
+                <p><a href="/#/create" class="sideBarAhrefFix" ng-click="disableFiltersAndHideSideBar()">Create Recipe</a></p>
             </md-list-item>
             <md-divider></md-divider>
             <md-subheader class="md-no-sticky">Account settings</md-subheader>
