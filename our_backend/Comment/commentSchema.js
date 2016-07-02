@@ -6,12 +6,16 @@ var commentSchema = new Schema ({
     
     txt: String,
     creator:{
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.Object,
         ref: 'User'
     },
     forRecipe:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Recipe'
+    },
+    createdOn:{
+        type: Date,
+        default: Date.now
     }
 });
 

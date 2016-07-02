@@ -48,7 +48,7 @@
                     <md-list-item class="md-3-line" ng-repeat="comment in comments">
                         <img ng-src="/images/blankuser.jpeg" class="md-avatar">
                         <div class="md-list-item-text">
-                            <h4>{{comment.creator.username}}:</h4>
+                            <h4>{{comment.creator.username}} on  {{comment.createdOn | date}}:</h4>
                             <p>{{comment.txt}}</p>
                         </div>
                         <md-divider></md-divider>
