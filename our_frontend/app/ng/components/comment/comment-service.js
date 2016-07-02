@@ -6,16 +6,16 @@ angular.module('myApp.recipes')
         return $resource('http://localhost:3000/api/comments/:comment_id', {comment_id: '@_id'});
     })
 
-    .service('CommentService', function($http, $stateParams){
-        var commentList = {};
+    .factory('CommentService', function($http, $stateParams){
+        var commentList = [];
 
         commentList.getComments = function(){
             return $http({
                 url: 'http://localhost:3000/api/comments/:recipeId',
                 method: 'GET',
                 params: {recipeId: $stateParams.recipeId}
-            });
+            })
         };
-        
+
         return commentList;
     });
