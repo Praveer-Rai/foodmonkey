@@ -27,21 +27,30 @@
                 </md-list-item>
             </div>
             <md-divider></md-divider>
-            <md-list-item>
+            <md-list-item ng-if="loggedIn">
                 <md-icon class="md-default-theme" class="material-icons">&#xE89C;</md-icon>
-                <p><a href="/#/create" class="sideBarAhrefFix" ng-click="disableFiltersAndHideSideBar()">Create Recipe</a></p>
+                <p><a href="/#/create" class="sideBarAhrefFix" ng-click="disableFiltersAndHideSideBar()">Create
+                    Recipe</a></p>
             </md-list-item>
             <md-divider></md-divider>
             <md-subheader class="md-no-sticky">Account settings</md-subheader>
-            <md-list-item>
-                <md-icon class="md-default-theme" class="material-icons">&#xE7F9;</md-icon>
-                <p>Profile</p>
-            </md-list-item>
-            <md-list-item>
-                <md-icon class="md-default-theme" class="material-icons">&#xE547;</md-icon>
-                <p><a href="/#/orders" class="sideBarAhrefFix" ng-click="disableFiltersAndHideSideBar()">Shopping Cart</a></p>
-                <!--<div class="md-secondary">15</div>-->
-            </md-list-item>
+            <div ng-if="loggedIn">
+                <md-list-item>
+                    <md-icon class="md-default-theme" class="material-icons">&#xE7F9;</md-icon>
+                    <p>Profile</p>
+                </md-list-item>
+                <md-list-item>
+                    <md-icon class="md-default-theme" class="material-icons">&#xE547;</md-icon>
+                    <p><a href="/#/orders" class="sideBarAhrefFix" ng-click="disableFiltersAndHideSideBar()">Shopping
+                        Cart</a></p>
+                    <!--<div class="md-secondary">15</div>-->
+                </md-list-item>
+            </div>
+            <div ng-if="!loggedIn">
+                <md-list-item>
+                    Please log in/register to use full website functionlity.
+                </md-list-item>
+            </div>
         </md-list>
     </md-content>
 </md-sidenav>

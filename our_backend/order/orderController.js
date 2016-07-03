@@ -7,7 +7,7 @@ exports.postOrder = function(req, res) {
 
     var order = new Order(req.body);
 
-    //do not allow user to fake identity. The user who postet the movie must be the same user that is logged in
+    //do not allow user to fake identity. The user who posted the order must be the same user that is logged in
     if (!req.user.equals(order.user)) {
         res.sendStatus(401);
     }
@@ -47,9 +47,9 @@ exports.getOrder = function(req, res) {
     });
 };
 
-// Create endpoint /api/movies/:movie_id for PUT
+// Create endpoint /api/orders/:order_id for PUT
 exports.putOrder = function(req, res) {
-    // Use the Beer model to find a specific beer
+    // Use the Order model to find a specific order
     Order.findByIdAndUpdate(
         req.params.order_id,
         req.body,
@@ -68,9 +68,8 @@ exports.putOrder = function(req, res) {
 
 };
 
-// Create endpoint /api/movies/:movie_id for DELETE
+// Create endpoint /api/orders/:order_id for DELETE
 exports.deleteOrder = function(req, res) {
-    // Use the Beer model to find a specific beer and remove it
     Order.findById(req.params.order_id, function(err, m) {
         if (err) {
             res.status(500).send(err);

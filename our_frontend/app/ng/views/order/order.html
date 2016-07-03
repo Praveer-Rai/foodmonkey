@@ -1,8 +1,22 @@
-<md-content layout-padding>
-    <md-list>
-
-            <md-list-item ng-repeat="order in orders">
-                {{ order }}
-            </md-list-item>
-
+<div ng-repeat="order in orders">
+<md-toolbar layout="row" class="md-hue-3">
+    <div class="md-toolbar-tools">
+        <span>Order {{$index+1}} - {{ order._id }}</span>
+    </div>
+        <md-button ng-click="deleteOrder(order._id)" class="md-raised md-warn">Delete</md-button>
+</md-toolbar>
+<md-content>
+    <md-list class="md-dense" flex>
+        <md-list-item class="md-3-line" >
+            <div class="md-list-item-text" layout="column">
+                <h3>{{ order.paymentMethod }}</h3>
+                <h4>{{ order.ingredients }}</h4>
+                <h4>{{ order.marketId }}</h4>
+                <h4>{{ order.date | date}}</h4>
+                <p>{{ order.shipAddress }}</p>
+            </div>
+        </md-list-item>
+        <md-divider ></md-divider>
+    </md-list>
 </md-content>
+</div>

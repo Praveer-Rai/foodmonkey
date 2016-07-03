@@ -8,8 +8,7 @@
 </div>
 <md-content class="md-padding" layout="row" flex-gt-xs="100" layout-wrap>
     <md-card flex-xs flex-gt-xs="25" mv-recipe-card class="recipe-card" recipe="recipe"
-             ng-repeat="recipe in recipes | filter: filterArray | filter:searchText "
-             md-theme="{{'recipe-list'}}" md-theme-watch>
+             ng-repeat="recipe in recipes | filter: filterArray | filter:searchText">
     </md-card>
 </md-content>
 

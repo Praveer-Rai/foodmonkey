@@ -17,8 +17,7 @@ mongoose.connect([Config.db.host, '/', Config.db.name].join(''),{
 });
 
 
-// Compile a 'Movie' model using the movieSchema as the structure.
-// Mongoose also creates a MongoDB collection called 'Movies' for these documents.
+// Compile a 'recipe' model using the recipeSchema as the structure.
 var Recipe = mongoose.model('Recipe', recipeSchema);
 var User = mongoose.model('User', userSchema);
 var Ingredient = mongoose.model('Ingredient', ingredientSchema);

@@ -12,8 +12,7 @@ mongoose.connect([Config.db.host, '/', Config.db.name].join(''),{
     pass: Config.db.pass
 });
 
-// Compile a 'Movie' model using the movieSchema as the structure.
-// Mongoose also creates a MongoDB collection called 'Movies' for these documents.
+// Compile a 'User' model using the userSchema as the structure.
 var User = mongoose.model('User', userSchema);
 
 var user = new User({
