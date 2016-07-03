@@ -30,14 +30,14 @@ angular.module('myApp.recipes')
 
         }
     })
-    .controller('RecipeDetailCtrl', function($scope, Recipe, Comment, CommentService, CurrentCommentService, $mdToast, $rootScope, $mdDialog, $mdMedia, $stateParams, $state, $window, currUser) {
+    .controller('RecipeDetailCtrl', function($scope, Recipe, Comment, OrderService, CommentService, CurrentCommentService, $mdToast, $rootScope, $mdDialog, $mdMedia, $stateParams, $state, $window, currUser) {
 
         $scope.recipe = Recipe.get({recipeId: $stateParams.recipeId});
 
         CommentService.getComments()
             .success(function(data){
-                $scope.comments = data;
-            });
+            $scope.comments = data;
+        });
 
         this.commentText = '';
 
@@ -49,10 +49,10 @@ angular.module('myApp.recipes')
         $scope.cancelEditingRecipe = function(){ showSimpleToast("Editing cancelled"); };
         $scope.sameUser = sameUser;
         $scope.showEditCommentDialog = showEditCommentDialog;
-        $scope.getListOfComments = getListOfComments;
 
         $scope.recipe.$promise.then(function(){
             $scope.mayDelete = $scope.recipe.user && $scope.recipe.user == currUser.getUser()._id;
+            console.log($scope.recipe.user);
         });
 
         $scope.$watch(function(){
@@ -66,15 +66,6 @@ angular.module('myApp.recipes')
                 $scope.mayDelete = $scope.recipe.user == currUser.getUser()._id;
             }
         });
-
-        ////////////////////
-
-        function getListOfComments() {
-            CommentService.getComments()
-                .success(function(data){
-                    $scope.comments = data;
-                });
-        }
 
         function updateRecipe(changed) {
 
@@ -131,7 +122,20 @@ angular.module('myApp.recipes')
             );
         }
 
+        $scope.addToShoppingCart = function(){
+            var order = new OrderService();
+            order.user = currUser.getUser()._id;
+            order.date = new Date();
+            order.ingredients = $scope.recipe.ingredients;
+            order.orderStatus = "open";
+            OrderService.save(order, function(response){
+                console.log(response);
+            });
+            showSimpleToast("Ingredients added to shopping cart!");
+        }
+
         function addNewComment() {
+
             var newComment = new Comment();
 
             newComment.txt = this.commentText;
@@ -150,18 +154,17 @@ angular.module('myApp.recipes')
 
             var confirm = $mdDialog.confirm()
                 .title('Comment Added Successfully')
-                .ok('Ok')
+                .ok('Yes')
 
             $mdDialog.show(confirm).then(function() {
-                $scope.getListOfComments();
+                $state.reload();
             });
 
-            this.commentText = null;
         }
 
-        function showEditCommentDialog(currComment) {
-            CurrentCommentService.setCurrentComment(currComment);
-            console.log(CurrentCommentService.getCurrentComment());
+        function showEditCommentDialog(comment_id) {
+            CurrentCommentService.setCurrentCommentId(comment_id);
+            console.log(CurrentCommentService.getCurrentCommentId());
 
             var useFullScreen = $mdMedia('s');
             $mdDialog.show({
@@ -169,10 +172,14 @@ angular.module('myApp.recipes')
                 templateUrl: 'components/comment/edit-comment-dialog.html',
                 clickOutsideToClose:true,
                 fullscreen: useFullScreen
-            })
+            });
         }
 
         function sameUser(creator){
-            return currUser.getUser()._id == creator._id;
+            if (currUser.getUser()._id == creator._id){
+                return true;
+            } else {
+                return false;
+            }
         }
     });

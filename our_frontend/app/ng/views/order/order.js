@@ -22,12 +22,15 @@ angular.module('myApp.orders')
                     controller: 'OrderCtrl',
                 }
             }
-
         }
-
     })
 
-    .controller('OrderCtrl', function($rootScope, $scope, OrderService) {
+    .controller('OrderCtrl', function ($scope, OrderService, OpenOrderService) {
         $scope.orders = OrderService.query();
-    })
+        if (Object.keys(OpenOrderService.query()).length == 0) {
+            $scope.enableCheckout = false;
+        } else {
+            $scope.enableCheckout = true;
+        };
+    });
 

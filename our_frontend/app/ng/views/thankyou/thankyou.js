@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('myApp.recipes')
+angular.module('myApp.thankyou')
 
-    .constant('recipeListState', {
-        name: 'recipes.list',
+    .constant('thankyouState', {
+        name: 'thankyou.name',
         options: {
 
             // Using an empty url means that this child state will become active
@@ -18,8 +18,8 @@ angular.module('myApp.recipes')
             // most important thing to remember about templates.
             views: {
                 'content@root': {
-                    templateUrl: 'views/list/recipe-list.html',
-                    controller: 'RecipeListCtrl',
+                    templateUrl: 'views/thankyou/thankyou.html',
+                    controller: 'ThankyouCtrl',
                 }
             }
 
@@ -27,14 +27,7 @@ angular.module('myApp.recipes')
 
     })
 
-    .controller('RecipeListCtrl', function($rootScope, $scope, Recipe) {
-        $scope.recipes = Recipe.query();
-        $scope.filterArray = function(recipe) {
-            if(typeof($rootScope.selectedRecipeTypes) !== 'undefined') {
-                if($rootScope.selectedRecipeTypes.length === 0) return true;
-                return ($rootScope.selectedRecipeTypes.indexOf(recipe.recipeType) !== -1);
-            } else
-                return true;
-        };
+    .controller('ThankyouCtrl', function($scope, OrderService) {
+
     });
 

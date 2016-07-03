@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('myApp.recipes')
+angular.module('myApp.checkout')
 
-    .constant('recipeListState', {
-        name: 'recipes.list',
+    .constant('checkoutState', {
+        name: 'checkout.name',
         options: {
 
             // Using an empty url means that this child state will become active
@@ -18,8 +18,8 @@ angular.module('myApp.recipes')
             // most important thing to remember about templates.
             views: {
                 'content@root': {
-                    templateUrl: 'views/list/recipe-list.html',
-                    controller: 'RecipeListCtrl',
+                    templateUrl: 'views/checkout/checkout.html',
+                    controller: 'CheckoutCtrl',
                 }
             }
 
@@ -27,14 +27,12 @@ angular.module('myApp.recipes')
 
     })
 
-    .controller('RecipeListCtrl', function($rootScope, $scope, Recipe) {
-        $scope.recipes = Recipe.query();
-        $scope.filterArray = function(recipe) {
-            if(typeof($rootScope.selectedRecipeTypes) !== 'undefined') {
-                if($rootScope.selectedRecipeTypes.length === 0) return true;
-                return ($rootScope.selectedRecipeTypes.indexOf(recipe.recipeType) !== -1);
-            } else
-                return true;
+    .controller('CheckoutCtrl', function($scope, OpenOrderService) {
+        $scope.orders = OpenOrderService.query();
+        if (Object.keys($scope.orders).length == 0) {
+            $scope.enableCheckout = false;
+        } else {
+            $scope.enableCheckout = true;
         };
     });
 
