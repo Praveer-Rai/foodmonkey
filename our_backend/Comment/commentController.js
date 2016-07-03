@@ -17,7 +17,7 @@ exports.postComment = function(req, res) {
     });
 };
 
-// Create endpoint /api/Comment for GET
+// Create endpoint /api/comments for GET
 exports.getComments = function(req, res) {
     Comment.find(
         {forRecipe: req.query.recipeId},
@@ -31,9 +31,8 @@ exports.getComments = function(req, res) {
 };
 
 
-// Create endpoint /api/movies/:movie_id for GET
+// Create endpoint /api/comments/:comment_id for GET
 exports.getComment = function(req, res) {
-    // Use the Beer model to find a specific beer
     Comment.findById(
         {_id: req.params.comment_id},
         function(err, comment) {
@@ -46,9 +45,8 @@ exports.getComment = function(req, res) {
     });
 };
 
-// Create endpoint /api/movies/:movie_id for PUT
+// Create endpoint /api/comments/:comment_id for PUT
 exports.putComment = function(req, res) {
-    // Use the Beer model to find a specific beer
     Comment.findByIdAndUpdate(
         req.params.comment_id,
         req.body,
@@ -67,9 +65,8 @@ exports.putComment = function(req, res) {
 
 };
 
-// Create endpoint /api/movies/:movie_id for DELETE
+// Create endpoint /api/comments/:comment_id for DELETE
 exports.deleteComment = function(req, res) {
-    // Use the Beer model to find a specific beer and remove it
     Comment.findById(req.params.comment_id, function(err, m) {
         if (err) {
             res.status(500).send(err);
