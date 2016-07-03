@@ -36,23 +36,19 @@ angular.module('myApp.recipes')
 
         CommentService.getComments()
             .success(function(data){
-            $scope.comments = data;
-        });
+                $scope.comments = data;
+            });
 
         this.commentText = '';
 
         $scope.mayDelete;
-        $scope.mayEdit = currUser.loggedIn();
         $scope.deleteRecipe = deleteRecipe;
-        $scope.updateRecipe = updateRecipe;
         $scope.addNewComment = addNewComment;
-        $scope.cancelEditingRecipe = function(){ showSimpleToast("Editing cancelled"); };
         $scope.sameUser = sameUser;
         $scope.showEditCommentDialog = showEditCommentDialog;
 
         $scope.recipe.$promise.then(function(){
-            $scope.mayDelete = $scope.recipe.user && $scope.recipe.user == currUser.getUser()._id;
-            console.log($scope.recipe.user);
+            $scope.mayDelete = $scope.recipe.user._id && $scope.recipe.user._id == currUser.getUser()._id;
         });
 
         $scope.$watch(function(){
@@ -134,6 +130,7 @@ angular.module('myApp.recipes')
             showSimpleToast("Ingredients added to shopping cart!");
         }
 
+
         function addNewComment() {
 
             var newComment = new Comment();
@@ -181,5 +178,27 @@ angular.module('myApp.recipes')
             } else {
                 return false;
             }
+        }
+
+        function deleteRecipe(ev) {
+
+            var confirm = $mdDialog.confirm()
+                .title('Are you sure you want to delete this recipe?')
+                .targetEvent(ev)
+                .ok('Yes')
+                .cancel('Abort');
+
+            var toastText;
+            $mdDialog.show(confirm).then(function() {
+                return $scope.recipe.$remove().then(function() {
+                    return $state.go('recipes.list');
+                }).then(function(){
+                    showSimpleToast('Recipe deleted successfully');
+                }, function() {
+                    showSimpleToast("Error. Try again later");
+                });
+            }, function() {
+                showSimpleToast("delete aborted");
+            })
         }
     });
