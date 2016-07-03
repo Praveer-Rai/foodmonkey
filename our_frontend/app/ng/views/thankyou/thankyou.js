@@ -29,5 +29,5 @@ angular.module('myApp.thankyou')
 
     .controller('ThankyouCtrl', function($scope, OrderService) {
 
-    })
+    });
 
