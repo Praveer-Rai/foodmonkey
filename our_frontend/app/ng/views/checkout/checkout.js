@@ -27,12 +27,13 @@ angular.module('myApp.checkout')
 
     })
 
-    .controller('CheckoutCtrl', function($scope, OpenOrderService) {
+    .controller('CheckoutCtrl', function ($scope, OpenOrderService, EmailService, currUser) {
         $scope.orders = OpenOrderService.query();
         if (Object.keys($scope.orders).length == 0) {
             $scope.enableCheckout = false;
         } else {
             $scope.enableCheckout = true;
-        };
+        }
+        var emailResponse = EmailService.get(({userId: currUser.getUser()._id}));
     });
 
