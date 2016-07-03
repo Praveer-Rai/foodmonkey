@@ -93,8 +93,8 @@
                     </md-input-container>
                 </div>
                 <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-                    <md-button class="md-raised md-primary" ng-click="save()" ng-disabled="recipeForm.$invalid">Save</md-button>
-                    <md-button class="md-raised" ng-click="cancel()">Cancel</md-button>
+                    <md-button class="md-raised md-primary" ng-click="save($event)" ng-disabled="recipeForm.$invalid">Save</md-button>
+                    <md-button class="md-raised" ng-click="cancel($event)">Cancel</md-button>
                 </section>
             </div>
         </md-content>
