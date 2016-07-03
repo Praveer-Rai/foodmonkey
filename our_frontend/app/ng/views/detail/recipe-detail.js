@@ -52,6 +52,7 @@ angular.module('myApp.recipes')
 
         $scope.recipe.$promise.then(function(){
             $scope.mayDelete = $scope.recipe.user && $scope.recipe.user == currUser.getUser()._id;
+            console.log($scope.recipe.user);
         });
 
         $scope.$watch(function(){
@@ -126,6 +127,7 @@ angular.module('myApp.recipes')
             order.user = currUser.getUser()._id;
             order.date = new Date();
             order.ingredients = $scope.recipe.ingredients;
+            order.orderStatus = "open";
             OrderService.save(order, function(response){
                 console.log(response);
             });
