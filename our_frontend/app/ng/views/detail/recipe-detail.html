@@ -50,6 +50,9 @@
                         <div class="md-list-item-text">
                             <h4>{{comment.creator.username}} on  {{comment.createdOn | date}}:</h4>
                             <p>{{comment.txt}}</p>
+                            <md-button ng-if="sameUser(comment.creator)" ng-click="showEditCommentDialog(comment._id)">
+                                Edit
+                            </md-button>
                         </div>
                         <md-divider></md-divider>
                     </md-list-item>
