@@ -36,8 +36,8 @@ angular.module('myApp.recipes')
 
         CommentService.getComments()
             .success(function(data){
-            $scope.comments = data;
-        });
+                $scope.comments = data;
+            });
 
         this.commentText = '';
 
@@ -49,6 +49,7 @@ angular.module('myApp.recipes')
         $scope.cancelEditingRecipe = function(){ showSimpleToast("Editing cancelled"); };
         $scope.sameUser = sameUser;
         $scope.showEditCommentDialog = showEditCommentDialog;
+        $scope.getListOfComments = getListOfComments;
 
         $scope.recipe.$promise.then(function(){
             $scope.mayDelete = $scope.recipe.user && $scope.recipe.user == currUser.getUser()._id;
@@ -68,6 +69,12 @@ angular.module('myApp.recipes')
 
         ////////////////////
 
+        function getListOfComments() {
+            CommentService.getComments()
+                .success(function(data){
+                    $scope.comments = data;
+                });
+        }
 
         function updateRecipe(changed) {
 
@@ -125,7 +132,6 @@ angular.module('myApp.recipes')
         }
 
         function addNewComment() {
-
             var newComment = new Comment();
 
             newComment.txt = this.commentText;
@@ -144,17 +150,18 @@ angular.module('myApp.recipes')
 
             var confirm = $mdDialog.confirm()
                 .title('Comment Added Successfully')
-                .ok('Yes')
+                .ok('Ok')
 
             $mdDialog.show(confirm).then(function() {
-                $state.reload();
+                $scope.getListOfComments();
             });
 
+            this.commentText = null;
         }
 
-        function showEditCommentDialog(comment_id) {
-            CurrentCommentService.setCurrentCommentId(comment_id);
-            console.log(CurrentCommentService.getCurrentCommentId());
+        function showEditCommentDialog(currComment) {
+            CurrentCommentService.setCurrentComment(currComment);
+            console.log(CurrentCommentService.getCurrentComment());
 
             var useFullScreen = $mdMedia('s');
             $mdDialog.show({
@@ -162,14 +169,10 @@ angular.module('myApp.recipes')
                 templateUrl: 'components/comment/edit-comment-dialog.html',
                 clickOutsideToClose:true,
                 fullscreen: useFullScreen
-            });
+            })
         }
 
         function sameUser(creator){
-            if (currUser.getUser()._id == creator._id){
-                return true;
-            } else {
-                return false;
-            }
+            return currUser.getUser()._id == creator._id;
         }
     });

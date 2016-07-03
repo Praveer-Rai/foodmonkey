@@ -3,44 +3,44 @@
  */
 
 angular.module('myApp.recipes')
-    .controller("editCommentCtrl", function ($scope, EditCommentService, CurrentCommentService, $mdDialog, $state, $mdToast) {
-        $scope.newComment = '';
+    .controller("editCommentCtrl", function ($scope, Comment, EditCommentService, DeleteCommentService, CurrentCommentService, $mdDialog, $state, $window, $mdToast) {
+        this.newCommentText = '';
 
         $scope.update = update;
         $scope.remove = remove;
         $scope.cancel = cancel;
 
-        function update() {
-            currUser.login($scope.username, $scope.password).then(function () {
-                $mdDialog.hide();
-            }, function (response) {
-                if (response.status == 400 || response.status == 401) {
-                    $scope.errorText = "Wrong username or password.";
-                } else {
-                    $scope.errorText = "An unknown error occured. please try again later.";
-                }
-            });
+        function update(newText) {
+            var successful = $mdDialog.confirm()
+                .title('Comment Edited Successfully')
+                .ok('Ok');
+
+            EditCommentService.updateComment(newText).success(function(){
+                $mdDialog.show(successful).then(function(){
+                    return $window.location.reload();
+                })
+            })
         }
 
         function remove(){
             var confirm = $mdDialog.confirm()
-                .title('Are you sure you want to delete this recipe?')
+                .title('Are you sure you want to delete this comment?')
                 .ok('Yes')
-                .cancel('Abort');
+                .cancel('Cancel');
 
-            var toastText;
+            var successful = $mdDialog.confirm()
+                .title('Comment Deleted Successfully')
+                .ok('Ok');
+
             $mdDialog.show(confirm).then(function() {
-                return EditCommentService.deleteComment().then(function() {
-                    return $state.reload();
-                }).then(function(){
-                    showSimpleToast('Comment deleted successfully');
-                }, function() {
-                    showSimpleToast("Error. Try again later");
-                });
-            }, function() {
-                showSimpleToast("delete aborted");
+                DeleteCommentService.deleteComment().success(function() {
+                    $mdDialog.show(successful).then(function(){
+                        return $state.reload();
+                    })
+                })
             })
         }
+
 
         function showSimpleToast(txt) {
             $mdToast.show(
