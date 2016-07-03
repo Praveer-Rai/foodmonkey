@@ -36,5 +36,5 @@ angular.module('myApp.recipes')
             } else
                 return true;
         };
-    })
+    });
 

@@ -29,5 +29,5 @@ angular.module('myApp.checkout')
 
     .controller('CheckoutCtrl', function($scope, OrderService) {
 
-    })
+    });
 
