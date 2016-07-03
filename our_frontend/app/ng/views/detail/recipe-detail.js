@@ -30,7 +30,7 @@ angular.module('myApp.recipes')
 
         }
     })
-    .controller('RecipeDetailCtrl', function($scope, Recipe, Comment, CommentService, CurrentCommentService, $mdToast, $rootScope, $mdDialog, $mdMedia, $stateParams, $state, $window, currUser) {
+    .controller('RecipeDetailCtrl', function($scope, Recipe, Comment, OrderService, CommentService, CurrentCommentService, $mdToast, $rootScope, $mdDialog, $mdMedia, $stateParams, $state, $window, currUser) {
 
         $scope.recipe = Recipe.get({recipeId: $stateParams.recipeId});
 
