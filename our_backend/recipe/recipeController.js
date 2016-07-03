@@ -28,7 +28,7 @@ exports.getRecipes = function(req, res) {
             return;
         }
         res.json(recipes);
-    }).populate('user');
+    }).populate('user').populate('ingredients');
 };
 
 
@@ -41,7 +41,7 @@ exports.getRecipe = function(req, res) {
             return;
         }
         res.json(recipe);
-    });
+    }).populate('user').populate('ingredients');
 };
 
 // Create endpoint /api/recipes/:recipe_id for PUT
