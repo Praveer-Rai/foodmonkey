@@ -55,8 +55,6 @@ module.exports.signup = function(req, res){
     user.firstName = req.body.firstName;
     user.lastName = req.body.lastName;
 
-    console.log(req.body);
-
     user.save(function(err) {
         if (err) {
             res.status(500).send(err);
