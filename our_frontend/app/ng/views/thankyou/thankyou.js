@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('myApp.orders')
+angular.module('myApp.thankyou')
 
-    .constant('orderState', {
-        name: 'orders.list',
+    .constant('thankyouState', {
+        name: 'thankyou.name',
         options: {
 
             // Using an empty url means that this child state will become active
@@ -18,8 +18,8 @@ angular.module('myApp.orders')
             // most important thing to remember about templates.
             views: {
                 'content@root': {
-                    templateUrl: 'views/order/order.html',
-                    controller: 'OrderCtrl',
+                    templateUrl: 'views/thankyou/thankyou.html',
+                    controller: 'ThankyouCtrl',
                 }
             }
 
@@ -27,7 +27,7 @@ angular.module('myApp.orders')
 
     })
 
-    .controller('OrderCtrl', function($scope, OrderService) {
-        $scope.orders = OrderService.query();
+    .controller('ThankyouCtrl', function($scope, OrderService) {
+
     })
 
