@@ -20,7 +20,7 @@ angular.module('myApp.create')
             $scope.ingredients = ingredients;
         });
         $timeout(function () {
-            $scope.existingIngredients = loadAllIngredients();
+            $scope.existingIngredients = removeDuplicates(loadAllIngredients());
         }, 500);
 
         function loadAllIngredients(){
@@ -31,8 +31,6 @@ angular.module('myApp.create')
                 }
             });
         }
-
-        $scope.existingIngredients = loadAllIngredients();
 
         $scope.querySearch = function(query){
             $scope.searchText = query;
@@ -53,9 +51,14 @@ angular.module('myApp.create')
             return input.substring(0,1).toUpperCase()+input.substring(1);
         }
 
+        function removeDuplicates(a){
+            var seen = {};
+            return a.filter(function(item) {
+                return seen.hasOwnProperty(item.value) ? false : (seen[item.value] = true);
+            });
+        }
 
         $scope.showAddIngredientDialog = function(ev) {
-            console.log($scope.existingIngredients)
             var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
             $mdDialog.show({
                 //controller: DialogController,
