@@ -25,19 +25,29 @@ exports.getOrders = function(req, res) {
             return;
         }
         res.json(orders);
-    });
+    }).populate('user').populate('ingredients');
 };
 
 // Create endpoint /api/OpenOrder for GET
-exports.getOpenOrders = function(req, res) {
-    Order.find({orderStatus: 'open'},
-        function(err, orders) {
+exports.getOpenOrdersForUser = function(req, res) {
+    Order.find({orderStatus: 'open',user: req.params.userId},function(err, orders) {
         if (err) {
             res.status(500).send(err);
             return;
         }
         res.json(orders);
-    });
+    }).populate('user').populate('ingredients');
+};
+
+// Create endpoint /api/OpenOrder for GET
+exports.getAllOrdersForUser = function(req, res) {
+    Order.find({user: req.params.userId},function(err, orders) {
+        if (err) {
+            res.status(500).send(err);
+            return;
+        }
+        res.json(orders);
+    }).populate('user').populate('ingredients');
 };
 
 
@@ -51,7 +61,7 @@ exports.getOrder = function(req, res) {
         };
 
         res.json(order);
-    });
+    }).populate('user').populate('ingredients');
 };
 
 // Create endpoint /api/orders/:order_id for PUT

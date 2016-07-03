@@ -25,12 +25,10 @@
             <md-list class="md-dense" flex>
                 <md-list-item class="md-3-line" layout-padding>
                     <div class="md-list-item-text" layout="column">
-                        <h3>{{ order.paymentMethod }}</h3>
-                        <h4>{{ order.ingredients }}</h4>
-                        <h4>{{ order.marketId }}</h4>
-                        <h4>{{ order.date | date}}</h4>
-                        <h4>{{ order.orderStatus}}</h4>
-                        <p>{{ order.shipAddress }}</p>
+                        <h3>Payment mode: {{ order.paymentMethod }}</h3>
+                        <h3>Items in order</h3>
+                        <h4 class="sidebarPadLeft" ng-repeat="ing in order.ingredients">{{ ing.name }}</h4>
+                        <h4>Supermarket: {{ order.marketId }}</h4>
                     </div>
                 </md-list-item>
                 <md-divider></md-divider>
