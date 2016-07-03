@@ -3,11 +3,11 @@
  */
 var Order = require('./orderSchema');
 
-exports.postOrder = function(req, res) {
+exports.postOrder = function (req, res) {
 
     var order = new Order(req.body);
-    
-    order.save(function(err, m) {
+
+    order.save(function (err, m) {
         if (err) {
             res.status(500).send(err);
             return;
@@ -18,8 +18,8 @@ exports.postOrder = function(req, res) {
 };
 
 // Create endpoint /api/Order for GET
-exports.getOrders = function(req, res) {
-    Order.find(function(err, orders) {
+exports.getOrders = function (req, res) {
+    Order.find(function (err, orders) {
         if (err) {
             res.status(500).send(err);
             return;
@@ -29,8 +29,8 @@ exports.getOrders = function(req, res) {
 };
 
 // Create endpoint /api/OpenOrder for GET
-exports.getOpenOrdersForUser = function(req, res) {
-    Order.find({orderStatus: 'open',user: req.params.userId},function(err, orders) {
+exports.getOpenOrdersForUser = function (req, res) {
+    Order.find({orderStatus: 'open', user: req.params.userId}, function (err, orders) {
         if (err) {
             res.status(500).send(err);
             return;
@@ -40,8 +40,8 @@ exports.getOpenOrdersForUser = function(req, res) {
 };
 
 // Create endpoint /api/OpenOrder for GET
-exports.getAllOrdersForUser = function(req, res) {
-    Order.find({user: req.params.userId},function(err, orders) {
+exports.getAllOrdersForUser = function (req, res) {
+    Order.find({user: req.params.userId}, function (err, orders) {
         if (err) {
             res.status(500).send(err);
             return;
@@ -52,20 +52,21 @@ exports.getAllOrdersForUser = function(req, res) {
 
 
 // Create endpoint /api/order/:order_id for GET
-exports.getOrder = function(req, res) {
+exports.getOrder = function (req, res) {
     // Use the Beer model to find a specific beer
-    Order.findById(req.params.order_id, function(err, order) {
+    Order.findById(req.params.order_id, function (err, order) {
         if (err) {
             res.status(500).send(err)
             return;
-        };
+        }
+        ;
 
         res.json(order);
     }).populate('user').populate('ingredients');
 };
 
 // Create endpoint /api/orders/:order_id for PUT
-exports.putOrder = function(req, res) {
+exports.putOrder = function (req, res) {
     // Use the Order model to find a specific order
     Order.findByIdAndUpdate(
         req.params.order_id,
@@ -85,9 +86,33 @@ exports.putOrder = function(req, res) {
 
 };
 
+// Create endpoint /api/orders/:order_id for MARKING order as DELETED
+exports.markOrderAsDelete = function (req, res) {
+    Order.findById(req.params.order_id, function (err, order) {
+        if (err) {
+            res.status(500).send(err);
+            return;
+        }
+        console.log(req.params.order_id);
+        console.log(order);
+
+        order.update(
+            {_id: req.params.order_id},
+            {
+                $set: {
+                    orderStatus : 'deleted',
+                }
+            }
+        )
+        console.log(order);
+        res.status(200);
+        res.json();
+    });
+};
+
 // Create endpoint /api/orders/:order_id for DELETE
-exports.deleteOrder = function(req, res) {
-    Order.findById(req.params.order_id, function(err, m) {
+exports.deleteOrder = function (req, res) {
+    Order.findById(req.params.order_id, function (err, m) {
         if (err) {
             res.status(500).send(err);
             return;

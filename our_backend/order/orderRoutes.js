@@ -24,6 +24,9 @@ function orderRoutes(passport) {
     router.route('/openorders/:userId')
         .get(orderController.getOpenOrdersForUser);
 
+    router.route('/deleteorder/:order_id')
+        .get(orderController.markOrderAsDelete);
+
     router.route('/order/:order_id')
         .get(orderController.getOrder)
         .put(orderController.putOrder)
