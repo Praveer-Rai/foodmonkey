@@ -8,9 +8,6 @@ angular.module('myApp', ['ui.router', 'myApp.recipes', 'myApp.home', 'myApp.crea
         // For any unmatched url, redirect to homepage
         $urlRouterProvider.otherwise("/home");
 
-        //$mdThemingProvider.theme('foodMonkey').primaryPalette('teal').backgroundPallete('indigo')
-       // $mdThemingProvider.setDefaultTheme('foodMonkey');
-
         $mdThemingProvider
             .theme('default')
             .primaryPalette('teal')
@@ -20,8 +17,6 @@ angular.module('myApp', ['ui.router', 'myApp.recipes', 'myApp.home', 'myApp.crea
         $mdThemingProvider.theme('docs-dark', 'default')
             .primaryPalette('yellow')
             .dark();
-
-        //$mdThemingProvider.theme('recipe-list').backgroundPalette('lime').dark();
 
         $mdThemingProvider.alwaysWatchTheme(true);
 
