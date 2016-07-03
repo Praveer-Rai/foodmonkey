@@ -46,6 +46,7 @@ angular.module('myApp.recipes')
         $scope.addNewComment = addNewComment;
         $scope.sameUser = sameUser;
         $scope.showEditCommentDialog = showEditCommentDialog;
+        $scope.updateCommentList = updateCommentList;
 
         $scope.recipe.$promise.then(function(){
             $scope.mayDelete = $scope.recipe.user._id && $scope.recipe.user._id == currUser.getUser()._id;
@@ -62,6 +63,13 @@ angular.module('myApp.recipes')
                 $scope.mayDelete = $scope.recipe.user == currUser.getUser()._id;
             }
         });
+
+        function updateCommentList(){
+            CommentService.getComments()
+                .success(function(data){
+                    $scope.comments = data;
+                });
+        }
 
         function updateRecipe(changed) {
 
@@ -154,14 +162,15 @@ angular.module('myApp.recipes')
                 .ok('Yes')
 
             $mdDialog.show(confirm).then(function() {
-                $state.reload();
+                $scope.updateCommentList();
             });
 
+            this.commentText = null;
         }
 
-        function showEditCommentDialog(comment_id) {
-            CurrentCommentService.setCurrentCommentId(comment_id);
-            console.log(CurrentCommentService.getCurrentCommentId());
+        function showEditCommentDialog(currComment) {
+            CurrentCommentService.setCurrentComment(currComment);
+            console.log(CurrentCommentService.getCurrentComment());
 
             var useFullScreen = $mdMedia('s');
             $mdDialog.show({
@@ -170,6 +179,10 @@ angular.module('myApp.recipes')
                 clickOutsideToClose:true,
                 fullscreen: useFullScreen
             });
+
+            $scope.$on('Comments Updated', function(){
+                $scope.updateCommentList();
+            })
         }
 
         function sameUser(creator){
