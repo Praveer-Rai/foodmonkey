@@ -16,6 +16,7 @@ var Order = new mongoose.Schema({
     marketId: String,
     paymentMethod: String,
     shipAddress: String,
+    orderStatus: String,
     extraInfo: String
 });
 

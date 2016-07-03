@@ -30,14 +30,17 @@ angular.module('myApp.recipes')
 
         }
     })
+<<<<<<< HEAD
     .controller('RecipeDetailCtrl', function($scope, Recipe, Comment, CommentService, OrderService, $mdToast, $rootScope, $mdDialog, $stateParams, $state, currUser) {
+=======
+    .controller('RecipeDetailCtrl', function($scope, Recipe, Comment, CommentService, CurrentCommentService, $mdToast, $rootScope, $mdDialog, $mdMedia, $stateParams, $state, $window, currUser) {
+>>>>>>> 1dd1102d7853526505fc5b7c6f991150c6f6e5e1
 
         $scope.recipe = Recipe.get({recipeId: $stateParams.recipeId});
 
         CommentService.getComments()
             .success(function(data){
             $scope.comments = data;
-                console.log($scope.comments[0]);
         });
 
         this.commentText = '';
@@ -48,6 +51,8 @@ angular.module('myApp.recipes')
         $scope.updateRecipe = updateRecipe;
         $scope.addNewComment = addNewComment;
         $scope.cancelEditingRecipe = function(){ showSimpleToast("Editing cancelled"); };
+        $scope.sameUser = sameUser;
+        $scope.showEditCommentDialog = showEditCommentDialog;
 
         $scope.recipe.$promise.then(function(){
             $scope.mayDelete = $scope.recipe.user && $scope.recipe.user == currUser.getUser()._id;
@@ -152,9 +157,34 @@ angular.module('myApp.recipes')
                 console.log(response);
             });
 
-            this.commentText = null;
-            
-            showSimpleToast('New Comment Added Sucessfully');
+            var confirm = $mdDialog.confirm()
+                .title('Comment Added Successfully')
+                .ok('Yes')
 
+            $mdDialog.show(confirm).then(function() {
+                $state.reload();
+            });
+
+        }
+
+        function showEditCommentDialog(comment_id) {
+            CurrentCommentService.setCurrentCommentId(comment_id);
+            console.log(CurrentCommentService.getCurrentCommentId());
+
+            var useFullScreen = $mdMedia('s');
+            $mdDialog.show({
+                controller: 'editCommentCtrl',
+                templateUrl: 'components/comment/edit-comment-dialog.html',
+                clickOutsideToClose:true,
+                fullscreen: useFullScreen
+            });
+        }
+
+        function sameUser(creator){
+            if (currUser.getUser()._id == creator._id){
+                return true;
+            } else {
+                return false;
+            }
         }
     });

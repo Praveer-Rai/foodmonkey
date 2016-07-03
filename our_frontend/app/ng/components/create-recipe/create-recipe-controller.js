@@ -165,7 +165,6 @@ angular.module('myApp.create')
         $scope.save = function() {
             $scope.recipe.user = currUser.getUser()._id;
             $scope.recipe.ingredients = $scope.recipeIngredients;
-            console.log($scope.recipe.prepTime);
             Recipe.save($scope.recipe, function(response){
                 console.log(response);
             });
