@@ -26,7 +26,8 @@ var Order = new mongoose.Schema({
         type: String,
         default: 'open'
     },
-    extraInfo: String
+    extraInfo: String,
+    amount: Number
 });
 
 module.exports = mongoose.model('Order', Order);
