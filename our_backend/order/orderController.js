@@ -25,7 +25,7 @@ exports.getOrders = function(req, res) {
             return;
         }
         res.json(orders);
-    });
+    }).populate('user').populate('ingredients');
 };
 
 // Create endpoint /api/OpenOrder for GET
@@ -36,7 +36,7 @@ exports.getOpenOrdersForUser = function(req, res) {
             return;
         }
         res.json(orders);
-    });
+    }).populate('user').populate('ingredients');
 };
 
 // Create endpoint /api/OpenOrder for GET
@@ -47,7 +47,7 @@ exports.getAllOrdersForUser = function(req, res) {
             return;
         }
         res.json(orders);
-    });
+    }).populate('user').populate('ingredients');
 };
 
 
@@ -61,7 +61,7 @@ exports.getOrder = function(req, res) {
         };
 
         res.json(order);
-    });
+    }).populate('user').populate('ingredients');
 };
 
 // Create endpoint /api/orders/:order_id for PUT
