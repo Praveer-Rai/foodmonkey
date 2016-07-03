@@ -4,7 +4,7 @@
 
 angular.module('myApp.recipes')
     .controller("editCommentCtrl", function ($scope, Comment, EditCommentService, DeleteCommentService, CurrentCommentService, $mdDialog, $state, $window, $mdToast, $rootScope) {
-        this.newCommentText = '';
+        $scope.newCommentText = CurrentCommentService.getCurrentComment().txt;
 
         $scope.update = update;
         $scope.remove = remove;
@@ -39,16 +39,6 @@ angular.module('myApp.recipes')
                     })
                 })
             })
-        }
-
-
-        function showSimpleToast(txt) {
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent(txt)
-                    .position('bottom right')
-                    .hideDelay(3000)
-            );
         }
 
         function cancel() {

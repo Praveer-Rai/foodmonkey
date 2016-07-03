@@ -6,13 +6,13 @@
     </md-toolbar>
 
     <md-dialog-content layout-margin>
-        <span class="md-body-2 mv-error-text" ng-show="errorText">{{errorText}}</span>
         <md-input-container class="md-block">
-            <label>Your Edited Comment:</label>
+            <label>{{newCommentText}}</label>
             <input required name="comment" ng-model="newCommentText">
             <div ng-messages="editCommentForm.$error">
-                <div ng-message="required">Your new comment cannot be empty</div>
+                <div ng-message="required">Your new comment cannot be empty, otherwise delete</div>
             </div>
+        </md-input-container>
 
     </md-dialog-content>
     <md-dialog-actions layout="row" layout-align="space-around center">
