@@ -30,7 +30,7 @@ angular.module('myApp.recipes')
 
         }
     })
-    .controller('RecipeDetailCtrl', function($scope, Recipe, Comment, CommentService, $mdToast, $rootScope, $mdDialog, $stateParams, $state, currUser) {
+    .controller('RecipeDetailCtrl', function($scope, Recipe, Comment, CommentService, OrderService, $mdToast, $rootScope, $mdDialog, $stateParams, $state, currUser) {
 
         $scope.recipe = Recipe.get({recipeId: $stateParams.recipeId});
 
@@ -121,6 +121,17 @@ angular.module('myApp.recipes')
                     .position('bottom right')
                     .hideDelay(3000)
             );
+        }
+
+        $scope.addToShoppingCart = function(){
+            var order = new OrderService();
+            order.user = currUser.getUser()._id;
+            order.date = new Date();
+            order.ingredients = $scope.recipe.ingredients;
+            OrderService.save(order, function(response){
+                console.log(response);
+            });
+            showSimpleToast("Ingredients added to shopping cart!");
         }
 
         function addNewComment() {
