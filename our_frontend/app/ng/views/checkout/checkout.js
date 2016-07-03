@@ -35,9 +35,11 @@ angular.module('myApp.checkout')
             $scope.enableCheckout = true;
         }
 
-        EmailService.sendConfirmation(currUser.getUser()._id, function(data){
-            console.log(data);
-        });
+        $scope.submitOrder = function() {
+            EmailService.sendConfirmation(currUser.getUser()._id, function(data){
+                console.log(data);
+            });
+        };
         
     });
 

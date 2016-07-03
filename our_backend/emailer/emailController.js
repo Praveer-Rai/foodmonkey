@@ -16,6 +16,7 @@ exports.sendemail = function (req, res) {
 
         var emailBody1 = '<html><body> <p> Please find your order details below</p> <table>';
         var emailBody2 = '';
+        var toAddress = '';
 
         Order.find({orderStatus: 'open',user: req.body.userId},
             function(err, orders) {
@@ -25,38 +26,45 @@ exports.sendemail = function (req, res) {
                 }
 
                 for(i = 0; i < orders.length; i++){
-                    emailBody2 = emailBody2 + '<tr><td>' + orders[i]._id + '</td></tr>';
+                    toAddress = orders[i].user.email;
+                    emailBody2 = emailBody2 + '<tr><td> Order Id: ' + orders[i]._id + '</td></tr>';
+                    for(j = 0; j < orders[i].ingredients.length; j++){
+                        emailBody2 = emailBody2 + '<tr><td>' + orders[i].ingredients[j].name + '</td></tr>';
+                    }
+                    emailBody2 = emailBody2 + '<br>';
                 }
 
                 emailBody1 = emailBody1 + emailBody2 + '</table></body></html>';
-                console.log(emailBody1);
-
-
 
                 var nodemailer = require('nodemailer');
 
-                // create reusable transporter object using the default SMTP transport
-                var transporter = nodemailer.createTransport('smtps://foodmonkey.team48@gmail.com:sebateam48@smtp.gmail.com');
+                var transporter = nodemailer.createTransport( {
+                    service:  'Mailgun',
+                    auth: {
+                        user: 'postmaster@sandbox190c9da203a64cd28c227600060eb86a.mailgun.org',
+                        pass: '91ec9883d37f5985fe7c8a1e0e53db16'
+                    }
+                });
 
                 // setup e-mail data with unicode symbols
                 var mailOptions = {
                     from: '"Foodmonkey" <foodmonkey.team48@gmail.com>', // sender address
-                    to: 'raipraveer@gmail.com', // list of receivers
+                    to: toAddress, // list of receivers
                     subject: 'You order from food monkey.', // Subject line
                     html: emailBody1 // html body
                 };
 
                 // send mail with defined transport object
-                /* transporter.sendMail(mailOptions, function (error, info) {
+                transporter.sendMail(mailOptions, function (error, info) {
                  if (error) {
                  return console.log(error);
                  }
                  console.log('Message sent: ' + info.response);
-                 });*/
+                 });
                 res.status(201).json();
 
 
-            });
+            }).populate('user').populate('ingredients');;
 
 
 
