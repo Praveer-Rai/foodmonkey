@@ -27,8 +27,8 @@ angular.module('myApp.checkout')
 
     })
 
-    .controller('CheckoutCtrl', function ($scope, OpenOrderService, EmailService, currUser) {
-        $scope.orders = OpenOrderService.query();
+    .controller('CheckoutCtrl', function ($scope, UserOpenOrderService, EmailService, currUser) {
+        $scope.orders = UserOpenOrderService.query(({userId: currUser.getUser()._id}));
         if (Object.keys($scope.orders).length == 0) {
             $scope.enableCheckout = false;
         } else {

@@ -3,7 +3,7 @@ angular.module('myApp')
         return {
             restrict: "A",
             templateUrl: "components/sidebar/sidebar.html",
-            controller: function($rootScope, $scope, $mdSidenav, FilterService, OpenOrderService) {
+            controller: function($rootScope, $scope, $mdSidenav, FilterService, UserOpenOrderService, currUser) {
                 $scope.showFilters = false;
                 $scope.enableFilters = function() {
                     $scope.showFilters = true;
@@ -36,7 +36,7 @@ angular.module('myApp')
                     return list.indexOf(item) > -1;
                 };
 
-                $scope.openOrderCount = Object.keys(OpenOrderService.query()).length;
+                $scope.openOrderCount = Object.keys(UserOpenOrderService.query(({userId: currUser.getUser()._id}))).length;
 
             }
         }
