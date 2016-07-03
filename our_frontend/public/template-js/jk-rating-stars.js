@@ -91,8 +91,6 @@
       }
       scope.$watch('ctrl.maxRating', function(oldVal, newVal) {
         ctrl.initStarsArray();
-      });
-      scope.$watch('ctrl.rating', function(oldVal, newVal) {
         ctrl.validateStars(ctrl.rating);
       });
     }
