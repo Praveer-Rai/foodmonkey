@@ -49,6 +49,7 @@ angular.module('myApp.recipes')
         $scope.cancelEditingRecipe = function(){ showSimpleToast("Editing cancelled"); };
         $scope.sameUser = sameUser;
         $scope.showEditCommentDialog = showEditCommentDialog;
+        $scope.updateCommentList = updateCommentList;
 
         $scope.recipe.$promise.then(function(){
             $scope.mayDelete = $scope.recipe.user && $scope.recipe.user == currUser.getUser()._id;
@@ -113,15 +114,6 @@ angular.module('myApp.recipes')
             );
         }
 
-        function showSaveToast() {
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent("Save successful")
-                    .position('bottom right')
-                    .hideDelay(3000)
-            );
-        }
-
         $scope.addToShoppingCart = function(){
             var order = new OrderService();
             order.user = currUser.getUser()._id;
@@ -132,6 +124,13 @@ angular.module('myApp.recipes')
                 console.log(response);
             });
             showSimpleToast("Ingredients added to shopping cart!");
+        }
+
+        function updateCommentList() {
+            CommentService.getComments()
+                .success(function(data){
+                    $scope.comments = data;
+                });
         }
 
         function addNewComment() {
@@ -157,14 +156,15 @@ angular.module('myApp.recipes')
                 .ok('Yes')
 
             $mdDialog.show(confirm).then(function() {
-                $state.reload();
+                $scope.updateCommentList();
             });
 
+            this.commentText = null;
         }
 
-        function showEditCommentDialog(comment_id) {
-            CurrentCommentService.setCurrentCommentId(comment_id);
-            console.log(CurrentCommentService.getCurrentCommentId());
+        function showEditCommentDialog(currComment) {
+            CurrentCommentService.setCurrentComment(currComment);
+            console.log(CurrentCommentService.getCurrentComment());
 
             var useFullScreen = $mdMedia('s');
             $mdDialog.show({
@@ -173,13 +173,13 @@ angular.module('myApp.recipes')
                 clickOutsideToClose:true,
                 fullscreen: useFullScreen
             });
+
+            $scope.$on('Comment List Updated', function(){
+                $scope.updateCommentList();
+            })
         }
 
         function sameUser(creator){
-            if (currUser.getUser()._id == creator._id){
-                return true;
-            } else {
-                return false;
-            }
+            return (currUser.getUser()._id == creator._id);
         }
     });
