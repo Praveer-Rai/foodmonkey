@@ -3,7 +3,7 @@ var Order = require('../order/orderSchema');
 
 exports.sendemail = function (req, res) {
 
-    User.findOne({_id: req.params.userId}, function (err, user) {
+    User.findOne({_id: req.body.userId}, function (err, user) {
         if (err) {
             res.status(500).send(err);
             return
@@ -17,7 +17,7 @@ exports.sendemail = function (req, res) {
         var emailBody1 = '<html><body> <p> Please find your order details below</p> <table>';
         var emailBody2 = '';
 
-        Order.find({orderStatus: 'open',user: req.params.userId},
+        Order.find({orderStatus: 'open',user: req.body.userId},
             function(err, orders) {
                 if (err) {
                     res.status(500).send(err);

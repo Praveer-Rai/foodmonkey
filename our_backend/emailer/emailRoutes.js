@@ -13,8 +13,8 @@ function emailRoutes(passport) {
     //middleware
     router.use(mw.unless({method: ['GET', 'OPTIONS']}));
 
-    router.route('/sendemail/:userId')
-        .get(emailController.sendemail);
+    router.route('/sendemail')
+        .post(emailController.sendemail);
 
     return router;
 }
