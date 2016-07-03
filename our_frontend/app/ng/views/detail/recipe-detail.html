@@ -3,7 +3,13 @@
         <div class="md-toolbar-tools">
             <h2 class="md-flex">{{recipe.title}}</h2>
             <span flex></span>
-            <md-button class="md-fab md-mini" aria-label="Use Android" ng-click="addToShoppingCart()">
+            <md-button class="md-fab md-mini md-warn" ng-if="mayDelete" ng-click="deleteRecipe($event)">
+                <md-tooltip>
+                    Delete recipe
+                </md-tooltip>
+                <md-icon class="material-icons">&#xE92B;</md-icon>
+            </md-button>
+            <md-button class="md-fab md-mini" ng-click="addToShoppingCart()">
                 <md-tooltip>
                     Add to shopping cart
                 </md-tooltip>
@@ -18,7 +24,7 @@
                 <img flex="90" class="mv-display-pic" ng-src="{{recipe.mainImageId}}">
             </div>
             <div flex>
-                <h2>Prep Time: {{recipe.prepTime}}</h2>
+                <h2><md-icon class="material-icons">&#xE855;</md-icon> {{recipe.prepTime}} minutes</h2>
                 <h2>Difficulty: {{recipe.difficulty}}</h2>
                 <h2>User rating:
                     <jk-rating-stars rating="recipe.rating" read-only="true"></jk-rating-stars>
