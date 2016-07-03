@@ -52,6 +52,7 @@ angular.module('myApp.recipes')
 
         $scope.recipe.$promise.then(function(){
             $scope.mayDelete = $scope.recipe.user && $scope.recipe.user == currUser.getUser()._id;
+            console.log($scope.recipe.user);
         });
 
         $scope.$watch(function(){
