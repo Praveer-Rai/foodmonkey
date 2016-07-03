@@ -21,7 +21,7 @@ angular.module('myApp.recipes')
     })
 
     .service('CurrentCommentService', function(){
-        var currentComment = '';
+        var currentComment = {};
 
         return {
             getCurrentComment: function(){

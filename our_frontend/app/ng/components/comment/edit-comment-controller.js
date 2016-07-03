@@ -3,8 +3,8 @@
  */
 
 angular.module('myApp.recipes')
-    .controller("editCommentCtrl", function ($scope, Comment, EditCommentService, DeleteCommentService, CurrentCommentService, $mdDialog, $state, $window, $mdToast) {
-        this.newCommentText = '';
+    .controller("editCommentCtrl", function ($scope, Comment, EditCommentService, DeleteCommentService, CurrentCommentService, $mdDialog, $state, $window, $mdToast, $rootScope) {
+        $scope.newCommentText = CurrentCommentService.getCurrentComment().txt;
 
         $scope.update = update;
         $scope.remove = remove;
@@ -17,7 +17,7 @@ angular.module('myApp.recipes')
 
             EditCommentService.updateComment(newText).success(function(){
                 $mdDialog.show(successful).then(function(){
-                    return $window.location.reload();
+                    return $rootScope.$broadcast('Comments Updated');
                 })
             })
         }
@@ -35,20 +35,10 @@ angular.module('myApp.recipes')
             $mdDialog.show(confirm).then(function() {
                 DeleteCommentService.deleteComment().success(function() {
                     $mdDialog.show(successful).then(function(){
-                        return $state.reload();
+                        return $rootScope.$broadcast('Comments Updated');
                     })
                 })
             })
-        }
-
-
-        function showSimpleToast(txt) {
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent(txt)
-                    .position('bottom right')
-                    .hideDelay(3000)
-            );
         }
 
         function cancel() {

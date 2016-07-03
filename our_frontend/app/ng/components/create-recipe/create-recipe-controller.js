@@ -3,7 +3,7 @@
  */
 
 angular.module('myApp.create')
-    .controller('CreateRecipeCtrl', function($scope, $timeout, Recipe, Ingredient, ingredientService, sharedIngredientList, $mdDialog, $rootScope, $location, currUser, $mdToast, $mdMedia) {
+    .controller('CreateRecipeCtrl', function($scope, $timeout, Recipe, Ingredient, ingredientService, sharedIngredientList, $mdDialog, $rootScope, $state, $location, currUser, $mdToast, $mdMedia) {
 
         $scope.recipe = new Recipe();
         $scope.recipe.steps = [];
@@ -162,19 +162,41 @@ angular.module('myApp.create')
             );
         }
 
-        $scope.save = function() {
+        $scope.save = function(ev) {
             $scope.recipe.user = currUser.getUser()._id;
             $scope.recipe.ingredients = $scope.recipeIngredients;
-            Recipe.save($scope.recipe, function(response){
-                console.log(response);
+
+            var confirm = $mdDialog.confirm()
+                .title('Save this recipe?')
+                .targetEvent(ev)
+                .ok('Yes')
+                .cancel('Cancel');
+
+            $mdDialog.show(confirm).then(function() {
+                return $scope.recipe.$save().then(function() {
+                    return $state.go('recipes.list');
+                }).then(function(){
+                    showSimpleToast('Recipe saved successfully');
+                }, function() {
+                    showSimpleToast("Error. Try again later");
+                });
+            }, function() {
+                showSimpleToast("delete aborted");
             });
-            showSimpleToast("New recipe created!");
-            $location.path('/recipes');
         };
 
-        $scope.cancel = function() {
-            showSimpleToast("Creation canceled");
-            $location.path('/recipes');
+        $scope.cancel = function(ev) {
+            var confirm = $mdDialog.confirm()
+                .title('Abort creation of new recipe?')
+                .targetEvent(ev)
+                .ok('Yes')
+                .cancel('Cancel');
+
+            $mdDialog.show(confirm).then(function(){
+                return $state.go('recipes.list');
+            }).then(function(){
+                showSimpleToast('Creation canceled');
+            });
         };
 
     });

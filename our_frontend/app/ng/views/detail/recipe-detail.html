@@ -9,7 +9,7 @@
                 </md-tooltip>
                 <md-icon class="material-icons">&#xE92B;</md-icon>
             </md-button>
-            <md-button class="md-fab md-mini" ng-click="addToShoppingCart()">
+            <md-button class="md-fab md-mini" ng-if="loggedIn" ng-click="addToShoppingCart($event)">
                 <md-tooltip>
                     Add to shopping cart
                 </md-tooltip>
@@ -64,8 +64,8 @@
                         <div class="md-list-item-text">
                             <h4>{{comment.creator.username}} on  {{comment.createdOn | date}}:</h4>
                             <p>{{comment.txt}}</p>
-                            <div align="right">
-                                <md-button ng-if="sameUser(comment.creator)" ng-click="showEditCommentDialog(comment)">
+                            <div layout='column' layout-align=" center end">
+                                <md-button class='md-raised' ng-if="sameUser(comment.creator)" ng-click="showEditCommentDialog(comment)">
                                     Edit
                                 </md-button>
                             </div>
@@ -80,12 +80,12 @@
             <form name="CommentForm" ng-submit="addNewComment()" ng-if="loggedIn">
                 <md-input-container md-no-float class="md-block">
                     <label>Share your comments!</label>
-                    <input minlength="10" maxlength="50" required name="commentText" ng-model="commentText">
-                    <div ng-messages="CommentForm.text.$error">
-                        <div ng-message="required">This is required, and between 10-50 chars.</div>
+                    <input required name="commentText" ng-model="commentText">
+                    <div ng-messages="CommentForm.$error">
+                        <div ng-message="required">Your comment cannot be empty.</div>
                     </div>
                 </md-input-container>
-                <md-button type="submit" class="md-raised md-primary">Add comment</md-button>
+                <md-button type="submit" class="md-raised md-primary" ng-disabled="CommentForm.$invalid">Add comment</md-button>
             </form>
 
             <p ng-if="!loggedIn">Please log in to add comments</p>
