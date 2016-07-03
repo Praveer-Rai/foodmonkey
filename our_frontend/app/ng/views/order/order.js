@@ -31,7 +31,8 @@ angular.module('myApp.orders')
             $scope.enableCheckout = false;
         } else {
             $scope.enableCheckout = true;
-        };
+        }
+        ;
 
         $scope.deleteOrder = deleteOrder;
 
@@ -44,9 +45,11 @@ angular.module('myApp.orders')
                 .cancel('No');
 
             var toastText;
-            $mdDialog.show(confirm).then(function() {
-                DeleteOrderService.query(({orderId:id}));
-            }, function() {
+            $mdDialog.show(confirm).then(function () {
+                DeleteOrderService.sendConfirmation(id, function (data) {
+                    console.log(data);
+                });
+            }, function () {
                 showSimpleToast("delete aborted");
             })
         }

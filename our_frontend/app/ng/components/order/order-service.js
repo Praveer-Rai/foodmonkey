@@ -19,6 +19,18 @@ angular.module('myApp.orders')
         return $resource('http://localhost:3000/api/openorders/:userId', {userId: '@_id'});
     })
 
-    .factory('DeleteOrderService', function ($resource) {
-        return $resource('http://localhost:3000/api/deleteorder/:orderId', {orderId: '@_id'});
+    .factory('DeleteOrderService', function ($http) {
+        var sendConfirmation = function (orderId, callbackFn) {
+
+            $http.post('http://localhost:3000/api/deleteorder', {
+                orderId: orderId
+            }).success(function (data) {
+                callbackFn(data);
+            });
+        };
+
+        return {
+            sendConfirmation: sendConfirmation
+        };
     });
+

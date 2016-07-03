@@ -86,9 +86,9 @@ exports.putOrder = function (req, res) {
 
 };
 
-// Create endpoint /api/orders/:order_id for MARKING order as DELETED
+// Create endpoint /api/deleteorder/ for MARKING order as DELETED
 exports.markOrderAsDelete = function (req, res) {
-    Order.findById(req.params.order_id, function (err, order) {
+    Order.findById(req.body.orderId, function (err, order) {
         if (err) {
             res.status(500).send(err);
             return;
