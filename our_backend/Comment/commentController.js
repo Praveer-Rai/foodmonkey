@@ -17,7 +17,7 @@ exports.postComment = function(req, res) {
     });
 };
 
-// Create endpoint /api/comments for GET
+// Create endpoint /api/Comment for GET
 exports.getComments = function(req, res) {
     Comment.find(
         {forRecipe: req.query.recipeId},
@@ -31,10 +31,11 @@ exports.getComments = function(req, res) {
 };
 
 
-// Create endpoint /api/comments/:comment_id for GET
+// Create endpoint /api/movies/:movie_id for GET
 exports.getComment = function(req, res) {
+    // Use the Beer model to find a specific beer
     Comment.findById(
-        {_id: req.params.comment_id},
+        {_id: req.query.comment_id},
         function(err, comment) {
         if (err) {
             res.status(500).send(err)
@@ -45,10 +46,11 @@ exports.getComment = function(req, res) {
     });
 };
 
-// Create endpoint /api/comments/:comment_id for PUT
+// Create endpoint /api/movies/:movie_id for PUT
 exports.putComment = function(req, res) {
+    // Use the Beer model to find a specific beer
     Comment.findByIdAndUpdate(
-        req.params.comment_id,
+        req.query.comment_id,
         req.body,
         {
             //pass the new object to cb function
@@ -65,20 +67,26 @@ exports.putComment = function(req, res) {
 
 };
 
-// Create endpoint /api/comments/:comment_id for DELETE
+// Create endpoint /api/movies/:movie_id for DELETE
 exports.deleteComment = function(req, res) {
-    Comment.findById(req.params.comment_id, function(err, m) {
+    // Use the Beer model to find a specific beer and remove it
+    Comment.findById(req.query.comment_id, function(err, m) {
         if (err) {
             res.status(500).send(err);
             return;
+        } else {
+            m.remove();
+            res.sendStatus(200);
         }
+        
         //authorize
+        /*
         if (m.user && req.user.equals(m.user)) {
             m.remove();
             res.sendStatus(200);
         } else {
             res.sendStatus(401);
         }
-
+        */
     });
 };

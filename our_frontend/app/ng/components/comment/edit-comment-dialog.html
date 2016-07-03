@@ -1,0 +1,30 @@
+<form name="editCommentForm" ng-submit="update()">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Edit your comment!</h2>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content layout-margin>
+        <span class="md-body-2 mv-error-text" ng-show="errorText">{{errorText}}</span>
+        <md-input-container class="md-block">
+            <label>Your Edited Comment:</label>
+            <input required name="comment" ng-model="newComment">
+            <div ng-messages="editCommentForm.$error">
+                <div ng-message="required">Your new comment cannot be empty</div>
+            </div>
+
+    </md-dialog-content>
+    <md-dialog-actions layout="row" layout-align="space-around center">
+        <md-button type='submit' ng-disabled="editCommentForm.$invalid">
+            Edit
+        </md-button>
+        <md-button ng-click="remove()">
+            Delete
+        </md-button>
+        <md-button ng-click="cancel()">
+            Cancel
+        </md-button>
+    </md-dialog-actions>
+
+</form>

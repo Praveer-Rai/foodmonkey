@@ -2,7 +2,15 @@
     <md-toolbar class="md-primary md-hue-3">
         <div class="md-toolbar-tools">
             <h2 class="md-flex">{{recipe.title}}</h2>
+            <span flex></span>
+            <md-button class="md-fab md-mini" aria-label="Use Android" ng-click="addToShoppingCart()">
+                <md-tooltip>
+                    Add to shopping cart
+                </md-tooltip>
+                <md-icon class="material-icons">&#xE854;</md-icon>
+            </md-button>
         </div>
+
     </md-toolbar>
     <md-content>
         <div layout="row" layout-sm="column" layout-padding>
@@ -46,10 +54,13 @@
             <md-content>
                 <md-list>
                     <md-list-item class="md-3-line" ng-repeat="comment in comments">
-                        <img ng-src="/images/blankuser.jpeg" class="md-avatar">
+                        <img ng-src="images/blankuser.jpeg" class="md-avatar">
                         <div class="md-list-item-text">
                             <h4>{{comment.creator.username}} on  {{comment.createdOn | date}}:</h4>
                             <p>{{comment.txt}}</p>
+                            <md-button ng-if="sameUser(comment.creator)" ng-click="showEditCommentDialog(comment._id)">
+                                Edit
+                            </md-button>
                         </div>
                         <md-divider></md-divider>
                     </md-list-item>
