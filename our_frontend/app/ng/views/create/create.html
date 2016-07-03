@@ -6,10 +6,10 @@
                     <md-input-container>
                         <label>Title</label>
                         <md-icon md-svg-src="icons/ic_restaurant_white_24px.svg"></md-icon>
-                        <input required name="title" md-maxlength="30" ng-model="recipe.title">
+                        <input required name="title" md-maxlength="40" ng-model="recipe.title">
                         <div ng-messages="recipeForm.title.$error">
                             <div ng-message="required">Title is required.</div>
-                            <div ng-message="md-maxlength">The title has to be less than 30 characters long.</div>
+                            <div ng-message="md-maxlength">The title has to be less than 40 characters long.</div>
                         </div>
                     </md-input-container>
                 </div>
@@ -78,7 +78,7 @@
                     <md-input-container >
                         <label>Type</label>
                         <md-icon class="md-default-theme" class="material-icons">&#xE252;</md-icon>
-                        <input required name="type" ng-model="recipe.recypeType">
+                        <input required name="type" ng-model="recipe.recipeType">
                         <div ng-messages="recipeForm.type.$error">
                             <div ng-message="required">Please enter a type</div>
                         </div>

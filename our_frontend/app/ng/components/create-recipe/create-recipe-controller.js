@@ -157,7 +157,7 @@ angular.module('myApp.create')
             $mdToast.show(
                 $mdToast.simple()
                     .textContent(txt)
-                    .position('bottom-right')
+                    .position('bottom right')
                     .hideDelay(3000)
             );
         }
