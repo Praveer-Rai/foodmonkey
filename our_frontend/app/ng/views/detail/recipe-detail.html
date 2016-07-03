@@ -9,7 +9,7 @@
                 </md-tooltip>
                 <md-icon class="material-icons">&#xE92B;</md-icon>
             </md-button>
-            <md-button class="md-fab md-mini" ng-click="addToShoppingCart()">
+            <md-button class="md-fab md-mini" ng-if="loggedIn" ng-click="addToShoppingCart($event)">
                 <md-tooltip>
                     Add to shopping cart
                 </md-tooltip>
