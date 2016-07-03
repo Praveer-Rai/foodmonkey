@@ -1,6 +1,3 @@
-/**
- * Created by Florian Noack on 05.06.2016.
- */
 var Comment = require('./commentSchema');
 
 exports.postComment = function(req, res) {
@@ -17,7 +14,6 @@ exports.postComment = function(req, res) {
     });
 };
 
-// Create endpoint /api/Comment for GET
 exports.getComments = function(req, res) {
     Comment.find(
         {forRecipe: req.query.recipeId},
@@ -31,11 +27,11 @@ exports.getComments = function(req, res) {
 };
 
 
-// Create endpoint /api/movies/:movie_id for GET
 exports.getComment = function(req, res) {
-    // Use the Beer model to find a specific beer
+    console.log('in the comment backend');
+
     Comment.findById(
-        {_id: req.query.comment_id},
+        req.params.comment_id,
         function(err, comment) {
         if (err) {
             res.status(500).send(err)
@@ -46,17 +42,16 @@ exports.getComment = function(req, res) {
     });
 };
 
-// Create endpoint /api/movies/:movie_id for PUT
 exports.putComment = function(req, res) {
-    // Use the Beer model to find a specific beer
-    Comment.findByIdAndUpdate(
-        req.query.comment_id,
-        req.body,
+    Comment.findOneAndUpdate(
+        {_id: req.query.comment_id},
+        {$set: {txt: req.body.txt}},
         {
             //pass the new object to cb function
             new: true,
+            upsert: true
             //run validations
-            runValidators: true
+            //runValidators: true
         }, function (err, comment) {
             if (err) {
                 res.status(500).send(err);
@@ -78,15 +73,5 @@ exports.deleteComment = function(req, res) {
             m.remove();
             res.sendStatus(200);
         }
-        
-        //authorize
-        /*
-        if (m.user && req.user.equals(m.user)) {
-            m.remove();
-            res.sendStatus(200);
-        } else {
-            res.sendStatus(401);
-        }
-        */
     });
 };

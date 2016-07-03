@@ -21,38 +21,45 @@ angular.module('myApp.recipes')
     })
 
     .service('CurrentCommentService', function(){
-        var currentCommentId = '';
+        var currentComment = '';
 
         return {
-            getCurrentCommentId: function(){
-                return currentCommentId;
+            getCurrentComment: function(){
+                return currentComment;
             },
 
-            setCurrentCommentId: function(comment_id){
-                currentCommentId = comment_id;
+            setCurrentComment: function(currComment){
+                currentComment = currComment;
             }
         }
     })
 
-    .factory('EditCommentService', function($http, $stateParams, CurrentCommentService){
+    .factory('EditCommentService', function($http, $resource, CurrentCommentService){
         var comment = {};
-        
-        comment.udpateComment = function(newComment){
+
+        comment.updateComment = function(newText){
             return $http({
                 url: 'http://localhost:3000/api/comments/:comment_id',
                 method: 'PUT',
-                data: newComment,
-                params: {comment_id: CurrentCommentService.getCurrentCommentId()}
-            })
-        };
-        
-        comment.deleteComment = function(){
-            return $http({
-                url: 'http://localhost:3000/api/comments/:comment_id',
-                method: 'DELETE',
-                params: {comment_id: CurrentCommentService.getCurrentCommentId()}
+                data: {txt: newText},
+                params: {comment_id: CurrentCommentService.getCurrentComment()._id}
             })
         };
 
         return comment;
     })
+
+    .factory('DeleteCommentService', function($http, $stateParams, CurrentCommentService){
+        var comment = {};
+
+        comment.deleteComment = function(){
+            return $http({
+                url: 'http://localhost:3000/api/comments/:comment_id',
+                method: 'DELETE',
+                params: {comment_id: CurrentCommentService.getCurrentComment()._id}
+            })
+        };
+
+        return comment;
+
+    });

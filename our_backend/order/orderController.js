@@ -28,6 +28,18 @@ exports.getOrders = function(req, res) {
     });
 };
 
+// Create endpoint /api/OpenOrder for GET
+exports.getOpenOrders = function(req, res) {
+    Order.find({orderStatus: 'open'},
+        function(err, orders) {
+        if (err) {
+            res.status(500).send(err);
+            return;
+        }
+        res.json(orders);
+    });
+};
+
 
 // Create endpoint /api/order/:order_id for GET
 exports.getOrder = function(req, res) {

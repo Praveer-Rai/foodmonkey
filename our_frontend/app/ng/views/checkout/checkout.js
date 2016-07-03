@@ -27,7 +27,12 @@ angular.module('myApp.checkout')
 
     })
 
-    .controller('CheckoutCtrl', function($scope, OrderService) {
-
+    .controller('CheckoutCtrl', function($scope, OpenOrderService) {
+        $scope.orders = OpenOrderService.query();
+        if (Object.keys($scope.orders).length == 0) {
+            $scope.enableCheckout = false;
+        } else {
+            $scope.enableCheckout = true;
+        };
     });
 
