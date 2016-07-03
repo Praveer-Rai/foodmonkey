@@ -30,11 +30,7 @@ angular.module('myApp.recipes')
 
         }
     })
-<<<<<<< HEAD
-    .controller('RecipeDetailCtrl', function($scope, Recipe, Comment, CommentService, OrderService, $mdToast, $rootScope, $mdDialog, $stateParams, $state, currUser) {
-=======
     .controller('RecipeDetailCtrl', function($scope, Recipe, Comment, CommentService, CurrentCommentService, $mdToast, $rootScope, $mdDialog, $mdMedia, $stateParams, $state, $window, currUser) {
->>>>>>> 1dd1102d7853526505fc5b7c6f991150c6f6e5e1
 
         $scope.recipe = Recipe.get({recipeId: $stateParams.recipeId});
 
@@ -69,9 +65,6 @@ angular.module('myApp.recipes')
                 $scope.mayDelete = $scope.recipe.user == currUser.getUser()._id;
             }
         });
-
-        ////////////////////
-
 
         function updateRecipe(changed) {
 
