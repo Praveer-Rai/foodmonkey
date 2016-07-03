@@ -1,1 +1,38 @@
-Checkout
+<div class="orderListing">
+    <p><label class="boldText"> Shopping cart >> Checkout</label></p>
+    <p><label> &nbsp;</label></p>
+    <p><label> Provide complete shipping address, payment is accepted by paypal, details will be sent to you by the supermarket.</label></p>
+    <p><label> &nbsp;</label></p>
+    <div ng-repeat="order in orders | filter:search:strict">
+        <md-toolbar layout="row" class="md-hue-3 fixOrderToolBarMaxHeight">
+            <div class="md-toolbar-tools">
+                <span>Order {{$index+1}} - {{ order._id }}</span>
+            </div>
+        </md-toolbar>
+        <md-content>
+            <md-list class="md-dense" flex>
+                <md-list-item class="md-3-line" layout-padding>
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{ order.paymentMethod }}</h3>
+                        <h4>{{ order.ingredients }}</h4>
+                        <h4>{{ order.marketId }}</h4>
+                        <h4>{{ order.date | date}}</h4>
+                        <h4>{{ order.orderStatus}}</h4>
+                    </div>
+                </md-list-item>
+
+            </md-list>
+        </md-content>
+        <md-input-container>
+            <md-icon class="md-default-theme" class="material-icons">&#xE0E1;</md-icon>
+            <input required name="address" md-maxlength="80" ng-model="order.shipAddress">
+            <div ng-messages="order.shipAddress.$error">
+                <div ng-message="required">Address is required.</div>
+                <div ng-message="md-maxlength">The address has to be less than 80 characters long.</div>
+            </div>
+        </md-input-container>
+        <md-divider></md-divider>
+    </div>
+
+    <div ng-if="enableCheckout" align="right"><md-button href="/#/thankyou" class="md-raised md-primary" ng-click="submitOrder()">SubmitOrder</md-button></div>
+</div>

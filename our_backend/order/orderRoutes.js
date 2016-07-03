@@ -17,6 +17,9 @@ function orderRoutes(passport) {
         .post(orderController.postOrder)
         .get(orderController.getOrders);
 
+    router.route('/openorders')
+        .get(orderController.getOpenOrders);
+
     router.route('/order/:order_id')
         .get(orderController.getOrder)
         .put(orderController.putOrder)

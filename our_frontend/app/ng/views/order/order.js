@@ -25,9 +25,9 @@ angular.module('myApp.orders')
         }
     })
 
-    .controller('OrderCtrl', function ($scope, OrderService) {
+    .controller('OrderCtrl', function ($scope, OrderService, OpenOrderService) {
         $scope.orders = OrderService.query();
-        if (Object.keys($scope.orders).length == 0) {
+        if (Object.keys(OpenOrderService.query()).length == 0) {
             $scope.enableCheckout = false;
         } else {
             $scope.enableCheckout = true;
