@@ -17,7 +17,7 @@ angular.module('myApp.recipes')
 
             EditCommentService.updateComment(newText).success(function(){
                 $mdDialog.show(successful).then(function(){
-                    return $rootScope.$broadcast('Comment List Updated');
+                    return $rootScope.$broadcast('Comments Updated');
                 })
             })
         }
@@ -35,7 +35,7 @@ angular.module('myApp.recipes')
             $mdDialog.show(confirm).then(function() {
                 DeleteCommentService.deleteComment().success(function() {
                     $mdDialog.show(successful).then(function(){
-                        return $rootScope.$broadcast('Comment List Updated');
+                        return $rootScope.$broadcast('Comments Updated');
                     })
                 })
             })
