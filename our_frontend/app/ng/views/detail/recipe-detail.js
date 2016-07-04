@@ -33,6 +33,8 @@ angular.module('myApp.recipes')
     .controller('RecipeDetailCtrl', function($scope, Recipe, Comment, OrderService, CommentService, CurrentCommentService, $mdToast, $rootScope, $mdDialog, $mdMedia, $stateParams, $state, $window, currUser) {
 
         $scope.recipe = Recipe.get({recipeId: $stateParams.recipeId});
+        $scope.price = 0;
+
 
         CommentService.getComments()
             .success(function(data){
@@ -50,6 +52,10 @@ angular.module('myApp.recipes')
 
         $scope.recipe.$promise.then(function(){
             $scope.mayDelete = $scope.recipe.user._id && $scope.recipe.user._id == currUser.getUser()._id;
+            for(var i in $scope.recipe.ingredients){
+                console.log($scope.recipe.ingredients[i]);
+                $scope.price += $scope.recipe.ingredients[i].price;
+            }
         });
 
         $scope.$watch(function(){
@@ -132,7 +138,7 @@ angular.module('myApp.recipes')
             order.user = currUser.getUser()._id;
             order.date = new Date();
             order.ingredients = $scope.recipe.ingredients;
-            order.orderStatus = "open";
+            order.cost = $scope.price;
 
             var confirm = $mdDialog.prompt()
                 .title('Add ingredients to shopping cart?')

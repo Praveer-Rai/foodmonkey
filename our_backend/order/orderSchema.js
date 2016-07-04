@@ -27,6 +27,7 @@ var Order = new mongoose.Schema({
         default: 'open'
     },
     extraInfo: String,
+    cost: Number,
     amount: Number
 });
 

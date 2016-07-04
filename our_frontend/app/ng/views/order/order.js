@@ -35,6 +35,25 @@ angular.module('myApp.orders')
                 $scope.enableCheckout = true;
             }
         });
+        
+        $scope.selected = ['open'];
+        $scope.toggle = function (item, list) {
+            var idx = list.indexOf(item);
+            if (idx > -1) list.splice(idx, 1);
+            else list.push(item);
+        };
+
+        $scope.exists = function (item, list) {
+            return list.indexOf(item) > -1;
+        };
+
+        $scope.filterArray = function(order) {
+            if(typeof($scope.selected) !== 'undefined') {
+                if($scope.selected === 0) return true;
+                return ($scope.selected.indexOf(order.orderStatus) !== -1);
+            } else
+                return true;
+        };
 
         $scope.deleteOrder = deleteOrder;
 

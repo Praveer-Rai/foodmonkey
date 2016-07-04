@@ -1,26 +1,23 @@
 <div class="orderListing">
     <p><label class="boldText"> Shopping cart >> </label></p>
-    <label>Showing all orders, filter order by:</label>
     <md-input-container>
-        <md-radio-group ng-model="search.orderStatus" layout="row">
-            <md-radio-button value="open">
-                Open
-            </md-radio-button>
-            <md-radio-button value="submitted">
-                Submitted
-            </md-radio-button>
-            <md-radio-button value="deleted">
-                Deleted
-            </md-radio-button>
-        </md-radio-group>
+        <md-checkbox ng-checked="exists('open', selected)" ng-click="toggle('open', selected)">
+            open orders
+        </md-checkbox>
+        <md-checkbox ng-checked="exists('submitted', selected)" ng-click="toggle('submitted', selected)">
+            submitted orders
+        </md-checkbox>
+        <md-checkbox ng-checked="exists('deleted', selected)" ng-click="toggle('deleted', selected)">
+            deleted orders
+        </md-checkbox>
     </md-input-container>
 
-    <div ng-repeat="order in orders | filter:search:strict">
+    <div ng-repeat="order in orders | filter: filterArray">
         <md-toolbar layout="row" class="md-hue-3 fixOrderToolBarMaxHeight">
             <div class="md-toolbar-tools">
                 <span>Order {{$index+1}} - {{ order._id }}</span>
             </div>
-            <md-button ng-click="deleteOrder(order._id,$event)" class="md-raised md-warn">Delete</md-button>
+            <md-button ng-if="order.orderStatus == 'open'" ng-click="deleteOrder(order._id,$event)" class="md-raised md-warn">Delete</md-button>
         </md-toolbar>
         <md-content>
             <md-list class="md-dense" flex>
@@ -30,6 +27,7 @@
                         <h3>Items in order</h3>
                         <h4 class="sidebarPadLeft" ng-repeat="ing in order.ingredients">{{ ing.name }}</h4>
                         <h4>Supermarket: {{ order.marketId }}</h4>
+                        <h4>Cost: ${{ order.cost }}</h4>
                         <h4>Status: {{ order.orderStatus }}</h4>
                     </div>
                 </md-list-item>

@@ -35,11 +35,7 @@ angular.module('myApp')
                 $scope.exists = function (item, list) {
                     return list.indexOf(item) > -1;
                 };
-                if (currUser.getUser()._id != 'undefined'){
-                    UserOpenOrderService.sendConfirmation(currUser.getUser()._id, function (data) {
-                        $scope.openOrderCount = Object.keys(data).length;
-                    });
-                }
+
             }
         }
     });
