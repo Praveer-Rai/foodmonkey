@@ -19,7 +19,7 @@ Just for the backend application:
 
 go to your project root folder via command line
 ```
-cd path/to/workspace/foodmonkey-backend
+cd path/to/workspace/our-backend
 ```
 
 **install node dependencies**
