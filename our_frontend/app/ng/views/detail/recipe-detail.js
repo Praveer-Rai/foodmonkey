@@ -53,7 +53,7 @@ angular.module('myApp.recipes')
         $scope.recipe.$promise.then(function(){
             $scope.mayDelete = $scope.recipe.user._id && $scope.recipe.user._id == currUser.getUser()._id;
             for(var i in $scope.recipe.ingredients){
-                console.log($scope.recipe.ingredients[i]);
+                if(typeof $scope.recipe.ingredients[i].price != undefined)
                 $scope.price += $scope.recipe.ingredients[i].price;
             }
         });

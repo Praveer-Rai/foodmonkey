@@ -27,7 +27,7 @@
                         <h3>Items in order</h3>
                         <h4 class="sidebarPadLeft" ng-repeat="ing in order.ingredients">{{ ing.name }}</h4>
                         <h4>Supermarket: {{ order.marketId }}</h4>
-                        <h4>Cost: ${{ order.cost }}</h4>
+                        <h4>Cost: ${{ order.cost | number:2}}</h4>
                         <h4>Status: {{ order.orderStatus }}</h4>
                     </div>
                 </md-list-item>

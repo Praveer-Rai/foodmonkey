@@ -27,7 +27,7 @@
                 <h2><md-icon class="material-icons">&#xE855;</md-icon> {{recipe.prepTime}} minutes</h2>
                 <h2>Difficulty: {{recipe.difficulty}}</h2>
                 <h2>User rating: {{recipe.rating}}</h2>
-                <h2>Cost: ${{price}}</h2>
+                <h2>Cost: ${{price | number:2}}</h2>
                 <h3>Uploader: {{recipe.user.username}}</h3>
                 <h3>Created: {{recipe.createdOn | date}}</h3>
                 <h4>{{recipe.description}}</h4>
