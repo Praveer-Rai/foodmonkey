@@ -1,6 +1,6 @@
-# sebamaster-movie-backend application
+# foodmonkey-backend application
 
-sebamaster-movie-frontend application can be found [here](https://bitbucket.org/sebischair/sebamaster-movie-frontend)
+foodmonkey application can be found [here](https://github.com/Praveer-Rai/foodmonkey/tree/dev)
 
 ## Prerequisites
 
@@ -19,7 +19,7 @@ Just for the backend application:
 
 go to your project root folder via command line
 ```
-cd path/to/workspace/sebamaster-movie-frontend
+cd path/to/workspace/foodmonkey-backend
 ```
 
 **install node dependencies**
@@ -55,18 +55,6 @@ start the web server
 ```
 node server.js
 ```
-
-## testing
-
-**Important** Make sure that mocha is installed globally as it is specified in [documentation](https://mochajs.org/#installation). 
-
-Some tests are already implemented using the test framework mocha: Simply run
-
-```
-mocha
-```
-
-...and hope that all tests will pass.
 
 **Alternative/Additionally:** you could also use postman [postman](https://www.getpostman.com/)
 You need to import the test and environment from `test/rest.json.postman_collection` and `test/localhost.postman_environment`
