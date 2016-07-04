@@ -6,7 +6,7 @@
     </md-input-container>
     <input type="hidden" ng-model="recipeType">
 </div>
-<md-content class="md-padding" layout="row" flex-gt-xs="100" layout-wrap>
+<md-content class="md-padding" layout="row" flex-gt-xs="100" layout-align="center" layout-wrap>
     <md-card flex-xs flex-gt-xs="25" mv-recipe-card class="recipe-card" recipe="recipe"
              ng-repeat="recipe in recipes | filter: filterArray | filter:searchText">
     </md-card>
