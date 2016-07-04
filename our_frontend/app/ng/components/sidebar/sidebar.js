@@ -36,8 +36,9 @@ angular.module('myApp')
                     return list.indexOf(item) > -1;
                 };
 
-                $scope.openOrderCount = Object.keys(UserOpenOrderService.query(({userId: currUser.getUser()._id}))).length;
-
+                UserOpenOrderService.sendConfirmation(currUser.getUser()._id, function(data){
+                    $scope.openOrderCount = Object.keys(data).length;
+                });
             }
         }
     });

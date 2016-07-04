@@ -24,7 +24,7 @@
         </md-content>
         <md-input-container>
             <md-icon class="md-default-theme" class="material-icons">&#xE0E1;</md-icon>
-            <input required name="address" md-maxlength="80" ng-model="order.shipAddress">
+            <input required name="address" md-maxlength="80" aria-label="shipping address" ng-model="order.shipAddress">
             <div ng-messages="order.shipAddress.$error">
                 <div ng-message="required">Address is required.</div>
                 <div ng-message="md-maxlength">The address has to be less than 80 characters long.</div>

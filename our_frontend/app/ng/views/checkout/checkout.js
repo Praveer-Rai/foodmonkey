@@ -27,19 +27,26 @@ angular.module('myApp.checkout')
 
     })
 
-    .controller('CheckoutCtrl', function ($scope, UserOpenOrderService, EmailService, currUser) {
-        $scope.orders = UserOpenOrderService.query(({userId: currUser.getUser()._id}));
-        if (Object.keys($scope.orders).length == 0) {
-            $scope.enableCheckout = false;
-        } else {
-            $scope.enableCheckout = true;
-        }
+    .controller('CheckoutCtrl', function ($scope, UpdateOrderStatusService, UserOpenOrderService, EmailService, currUser) {
+        UserOpenOrderService.sendConfirmation(currUser.getUser()._id, function (data) {
+            $scope.orders = data;
+            if (Object.keys(data).length == 0) {
+                $scope.enableCheckout = false;
+            } else {
+                $scope.enableCheckout = true;
+            }
+        });
 
-        $scope.submitOrder = function() {
-            EmailService.sendConfirmation(currUser.getUser()._id, function(data){
+        $scope.submitOrder = function () {
+            for (var i in $scope.orders) {
+                UpdateOrderStatusService.sendConfirmation($scope.orders[i]._id, 'submitted', function (data) {
+                    console.log(data);
+                });
+            }
+            EmailService.sendConfirmation(currUser.getUser()._id, function (data) {
                 console.log(data);
             });
         };
-        
+
     });
 

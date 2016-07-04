@@ -25,14 +25,16 @@ angular.module('myApp.orders')
         }
     })
 
-    .controller('OrderCtrl', function ($scope, UserOrderService, UserOpenOrderService, currUser, DeleteOrderService, $mdDialog) {
+    .controller('OrderCtrl', function ($scope, UserOrderService, UserOpenOrderService, currUser, UpdateOrderStatusService, $mdDialog, $state) {
         $scope.orders = UserOrderService.query(({userId: currUser.getUser()._id}));
-        if (Object.keys(UserOpenOrderService.query(({userId: currUser.getUser()._id}))).length == 0) {
-            $scope.enableCheckout = false;
-        } else {
-            $scope.enableCheckout = true;
-        }
-        ;
+
+        UserOpenOrderService.sendConfirmation(currUser.getUser()._id, function(data){
+            if (Object.keys(data).length == 0) {
+                $scope.enableCheckout = false;
+            } else {
+                $scope.enableCheckout = true;
+            }
+        });
 
         $scope.deleteOrder = deleteOrder;
 
@@ -46,7 +48,8 @@ angular.module('myApp.orders')
 
             var toastText;
             $mdDialog.show(confirm).then(function () {
-                DeleteOrderService.sendConfirmation(id, function (data) {
+                UpdateOrderStatusService.sendConfirmation(id, 'deleted' ,function (data) {
+                    $state.reload();
                     console.log(data);
                 });
             }, function () {

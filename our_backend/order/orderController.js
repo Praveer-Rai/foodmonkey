@@ -86,27 +86,14 @@ exports.putOrder = function (req, res) {
 
 };
 
-// Create endpoint /api/deleteorder/ for MARKING order as DELETED
-exports.markOrderAsDelete = function (req, res) {
-    Order.findById(req.body.orderId, function (err, order) {
+// Create endpoint /api/updateOrderStatus/ for MARKING order as DELETED
+exports.updateOrderStatus = function (req, res) {
+    Order.findOneAndUpdate({_id: req.body.orderId}, {$set: {orderStatus: req.body.status}}, {new: true}, function (err, doc) {
         if (err) {
-            res.status(500).send(err);
-            return;
+            console.log("Something wrong when updating order status!");
         }
-        console.log(req.params.order_id);
-        console.log(order);
-
-        order.update(
-            {_id: req.params.order_id},
-            {
-                $set: {
-                    orderStatus : 'deleted',
-                }
-            }
-        )
-        console.log(order);
         res.status(200);
-        res.json();
+        res.json(doc);
     });
 };
 
